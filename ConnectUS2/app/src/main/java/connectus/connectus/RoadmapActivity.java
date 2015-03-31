@@ -14,6 +14,7 @@ import android.widget.TextView;
 public class RoadmapActivity extends Activity {
     private TextView userDisplay;
     private String username;
+    private String friendName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,24 @@ public class RoadmapActivity extends Activity {
         Intent myProfileIntent = new Intent(RoadmapActivity.this, MyProfileActivity.class);
         myProfileIntent.putExtra("user", username);     //Pass username to next activity
         RoadmapActivity.this.startActivity(myProfileIntent);
+    }
+
+    public void friendProfileClick(View view){
+        //use view.getId() to identify the button, and thus identify which profile you're accessing
+        Intent otherProfileIntent = new Intent(RoadmapActivity.this, OtherProfileActivity.class);
+        otherProfileIntent.putExtra("user", username);  //Pass username to next activity
+
+        if(view.getId() == R.id.YourFriendsNameHere){ //do fancy stuff with view.getId() here
+            otherProfileIntent.putExtra("friend", "Friend!");
+        }
+        RoadmapActivity.this.startActivity(otherProfileIntent);
+    }
+    
+    public void friendsListClick(View view){
+        Intent friendsListIntent = new Intent(RoadmapActivity.this, FriendsListActivity.class);
+        friendsListIntent.putExtra("user", username);
+
+        RoadmapActivity.this.startActivity(friendsListIntent);
     }
 
 }

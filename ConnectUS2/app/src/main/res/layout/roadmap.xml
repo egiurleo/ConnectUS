@@ -19,4 +19,24 @@
         android:onClick="myProfileClick">
 
     </Button>
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/YourFriendsNameHere"
+        android:layout_gravity="center_horizontal"
+        android:text="go to friend's profile"
+        android:onClick="friendProfileClick">
+
+    </Button>
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/friendslistbutton"
+        android:layout_gravity="center_horizontal"
+        android:text="GO TO FRIENDS LIST"
+        android:onClick="friendsListClick">
+
+    </Button>
 </LinearLayout>
