@@ -22,10 +22,17 @@ public class RoadmapActivity extends Activity {
 
         setContentView(R.layout.roadmap);
 
+        //get user object and display stuff based on that
         Intent intent = getIntent();
         String username = intent.getStringExtra("user");
         userDisplay = (TextView)findViewById(R.id.textView);
         userDisplay.setText("username: " + username);
-
     }
+
+    public void myProfileClick(){
+        Intent myProfileIntent = new Intent(RoadmapActivity.this, MyProfileActivity.class);
+        myProfileIntent.putExtra("user", username);     //Pass username to next activity
+        RoadmapActivity.this.startActivity(myProfileIntent);
+    }
+
 }
