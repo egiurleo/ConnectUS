@@ -29,7 +29,7 @@ public class RoadmapActivity extends Activity {
         userDisplay.setText("username: " + username);
     }
 
-    public void myProfileClick(){
+    public void myProfileClick(View view){
         Intent myProfileIntent = new Intent(RoadmapActivity.this, MyProfileActivity.class);
         myProfileIntent.putExtra("user", username);     //Pass username to next activity
         RoadmapActivity.this.startActivity(myProfileIntent);

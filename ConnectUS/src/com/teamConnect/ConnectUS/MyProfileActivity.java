@@ -21,7 +21,7 @@ public class MyProfgit ileActivity extends Activity {
         setContentView(R.layout.myprofile);
     }
 
-    public void changeVisibility(){
+    public void changeVisibility(View view){
         Intent changeVisibilityIntent = new Intent(myProfileActivity.this, changeVisibilityActivity.class);
         changeVisbilityIntent.putExtra("user", username);     //Pass username to next activity
         MyProfileActivity.this.startActivity(changeVisibilityIntent);
