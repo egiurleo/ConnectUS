@@ -4,13 +4,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/username"
+        android:text="Marisa's Profile" />
+
     <Button
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="Edit Profile"
+        android:onClick="editProfile"/>
+
+    <ImageView
+        android:layout_height="150dp"
+        android:layout_width="150dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:id="@+id/profilepic"
+        android:src="@drawable/flower"/>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/country"
+        android:text="Country of Origin: Spain"/>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp"
+        android:id="@+id/languages"
+        android:text="Languages: Spanish, Catalan"/>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp"
+        android:id="@+id/email"
+        android:text="Email: marisa@gmail.com"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phone"/>
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="20dp"
         android:text="Change Visibility"
-        android:onClick="changeVisibility">
-    </Button>
+        android:onClick="changeVisibility" />
+
 
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View;
+import android.widget.*;
 
 import java.lang.Override;
 
@@ -25,6 +26,16 @@ public class MyProfileActivity extends Activity {
         //get user object and display stuff based on that
         Intent intent = getIntent();
         username = intent.getStringExtra("user");
+
+        this.updateView();
+    }
+
+    public void updateView(){
+        //update info about the user
+    }
+
+    public void editProfile(View view){
+        //edit profile
     }
 
     public void changeVisibility(View view){

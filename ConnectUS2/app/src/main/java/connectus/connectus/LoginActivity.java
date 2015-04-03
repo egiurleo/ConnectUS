@@ -9,6 +9,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import java.util.Scanner;
+import java.io.*;
 
 public class LoginActivity extends Activity {
     private Button loginButton;
@@ -43,13 +45,11 @@ public class LoginActivity extends Activity {
         });
     }
 
-    private void attemptLogin()
-    {
+    private void attemptLogin(){
+
         username = usernameField.getText().toString();
         password = passwordField.getText().toString();
-        //message.setText(username + " " + password);
 
-        // TEST USER/PASS COMBO HERE
         Intent loginIntent = new Intent(LoginActivity.this, RoadmapActivity.class);
         loginIntent.putExtra("user", username);     //Pass username to next activity
         LoginActivity.this.startActivity(loginIntent);
