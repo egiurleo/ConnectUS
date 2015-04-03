@@ -57,12 +57,24 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp"
+        android:text="Phone: 679-073-2456"
         android:id="@+id/phone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp"
+        android:text="I'm willing to help!"
+        android:id="@+id/help"/>
 
     <Button
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_gravity="center|bottom"
+        android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         android:text="Change Visibility"
         android:onClick="changeVisibility" />

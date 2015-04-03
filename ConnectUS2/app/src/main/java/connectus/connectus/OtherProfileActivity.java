@@ -24,7 +24,7 @@ public class OtherProfileActivity extends Activity {
 
         Intent intent = getIntent();
         String friendsName = intent.getStringExtra("friend");
-        TextView text = (TextView)findViewById(R.id.friendsName);
-        text.setText("Profile: " + friendsName);
+        //TextView text = (TextView)findViewById(R.id.friendsName);
+        //text.setText("Profile: " + friendsName);
     }
 }
