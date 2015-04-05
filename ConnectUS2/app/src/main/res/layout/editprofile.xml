@@ -7,7 +7,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <Button
             android:layout_height="wrap_content"
@@ -50,8 +50,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp">
 
@@ -64,17 +65,19 @@
                 android:id="@+id/country"
                 android:text="Country of Origin:"/>
             
-            <EditText
-                android:layout_width="120dp"
-                android:layout_height="30dp"
+            <Spinner
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:entries="@array/countries"
                 android:id="@+id/country_fillin"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp">
 
             <TextView
@@ -87,15 +90,16 @@
                 android:text="Languages:"/>
 
             <EditText
-                android:layout_width="150dp"
-                android:layout_height="30dp"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
                 android:id="@+id/languages_fillin"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp">
 
@@ -109,15 +113,17 @@
                 android:text="Email:"/>
 
             <EditText
-                android:layout_width="150dp"
-                android:layout_height="30dp"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:textSize="20dp"
                 android:layout_marginLeft="10dp"
                 android:id="@+id/email_fillin"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp">
 
@@ -131,8 +137,8 @@
                 android:text="Phone:"/>
 
             <EditText
-                android:layout_width="150dp"
-                android:layout_height="30dp"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
                 android:id="@+id/phone_fillin"/>
         </LinearLayout>
