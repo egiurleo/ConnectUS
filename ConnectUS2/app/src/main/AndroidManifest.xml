@@ -20,7 +20,15 @@
 
         <activity
             android:name=".RoadmapActivity"
-            android:label="@string/app_name" >
+            android:label="Road Map" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MapStepActivity"
+            android:label="Details" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -28,7 +36,7 @@
 
         <activity
             android:name=".MyProfileActivity"
-            android:label="@string/app_name" >
+            android:label="My Profile" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -36,7 +44,7 @@
 
         <activity
             android:name=".ChangeVisibilityActivity"
-            android:label="@string/app_name" >
+            android:label="Change Visibility" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -44,7 +52,7 @@
 
         <activity
             android:name=".OtherProfileActivity"
-            android:label="@string/app_name" >
+            android:label="User Profile" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -52,7 +60,7 @@
 
         <activity
             android:name=".FriendsListActivity"
-            android:label="@string/app_name" >
+            android:label="Friend List" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -60,7 +68,7 @@
 
         <activity
             android:name=".FindFriendsActivity"
-            android:label="@string/app_name" >
+            android:label="Find Friends" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
