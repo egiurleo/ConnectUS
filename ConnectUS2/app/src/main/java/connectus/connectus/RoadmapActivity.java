@@ -7,6 +7,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View;
 import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 /**
  * Created by Jon M Beaulieu Jr on 3/27/2015.
@@ -20,7 +22,7 @@ public class RoadmapActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);  //Hides app title bar
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);  //Hides app title bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   //Hides Notification Bar
 
         setContentView(R.layout.roadmap);
@@ -30,6 +32,14 @@ public class RoadmapActivity extends Activity {
         username = intent.getStringExtra("user");
         userDisplay = (TextView)findViewById(R.id.textView);
         userDisplay.setText("username: " + username);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar, menu);
+        return true;
     }
 
     public void myProfileClick(View view){
