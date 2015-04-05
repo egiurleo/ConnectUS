@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 /**
  * Created by Jon M Beaulieu Jr on 3/27/2015.
@@ -22,7 +23,6 @@ public class RoadmapActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);  //Hides app title bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   //Hides Notification Bar
 
         setContentView(R.layout.roadmap);
@@ -30,8 +30,6 @@ public class RoadmapActivity extends Activity {
         //get user object and display stuff based on that
         Intent intent = getIntent();
         username = intent.getStringExtra("user");
-        userDisplay = (TextView)findViewById(R.id.textView);
-        userDisplay.setText("username: " + username);
 
     }
 
@@ -42,6 +40,24 @@ public class RoadmapActivity extends Activity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_notifications:
+                //open notification page
+                return true;
+            case R.id.action_profile:
+                myProfileClick(null);
+                return true;
+            case R.id.action_friends:
+                friendsListClick(null);
+                return true;
+            default:
+                return false;
+        }
+    }
+
     public void myProfileClick(View view){
         Intent myProfileIntent = new Intent(RoadmapActivity.this, MyProfileActivity.class);
         myProfileIntent.putExtra("user", username);     //Pass username to next activity
@@ -49,13 +65,9 @@ public class RoadmapActivity extends Activity {
     }
 
     public void friendProfileClick(View view){
-        //use view.getId() to identify the button, and thus identify which profile you're accessing
         Intent otherProfileIntent = new Intent(RoadmapActivity.this, OtherProfileActivity.class);
-        otherProfileIntent.putExtra("user", username);  //Pass username to next activity
+        otherProfileIntent.putExtra("user", username);
 
-        if(view.getId() == R.id.YourFriendsNameHere){ //do fancy stuff with view.getId() here
-            otherProfileIntent.putExtra("friend", "Friend!");
-        }
         RoadmapActivity.this.startActivity(otherProfileIntent);
     }
     
@@ -64,6 +76,13 @@ public class RoadmapActivity extends Activity {
         friendsListIntent.putExtra("user", username);
 
         RoadmapActivity.this.startActivity(friendsListIntent);
+    }
+
+    public void mapStepClick(View view){
+        Intent mapStepIntent = new Intent(RoadmapActivity.this, MapStepActivity.class);
+        mapStepIntent.putExtra("user", username);
+
+        RoadmapActivity.this.startActivity(mapStepIntent);
     }
 
 }
