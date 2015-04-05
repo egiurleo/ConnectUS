@@ -45,7 +45,7 @@ public class RoadmapActivity extends Activity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_notifications:
-                //open notification page
+                notificationClick();
                 return true;
             case R.id.action_profile:
                 myProfileClick(null);
@@ -83,6 +83,13 @@ public class RoadmapActivity extends Activity {
         mapStepIntent.putExtra("user", username);
 
         RoadmapActivity.this.startActivity(mapStepIntent);
+    }
+
+    public void notificationClick(){
+        Intent notificationIntent = new Intent(RoadmapActivity.this, NotificationsActivity.class);
+        notificationIntent.putExtra("user", username);
+
+        RoadmapActivity.this.startActivity(notificationIntent);
     }
 
 }
