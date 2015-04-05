@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Done Editing"
+            android:onClick="doneEditing"
+            android:layout_gravity="center_horizontal"/>
+
+        <ImageView
+            android:layout_height="150dp"
+            android:layout_width="150dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/profilepic"
+            android:src="@drawable/flower"
+            android:layout_gravity="center_horizontal"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/name"
+                android:text="Name:"/>
+
+            <EditText
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/name_fillin"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/country"
+                android:text="Country of Origin:"/>
+            
+            <EditText
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/country_fillin"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/languages"
+                android:text="Languages:"/>
+
+            <EditText
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/languages_fillin"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/email"
+                android:text="Email:"/>
+
+            <EditText
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/email_fillin"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/phone"
+                android:text="Phone:"/>
+
+            <EditText
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/phone_fillin"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/needhelp"
+                android:text="I'm looking for help"/>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/needhelp_check"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/help"
+                android:text="I'm willing to help"/>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/help_check"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

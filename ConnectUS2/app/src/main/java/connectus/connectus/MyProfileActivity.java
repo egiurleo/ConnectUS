@@ -35,6 +35,12 @@ public class MyProfileActivity extends ConnectUSActivity {
         MyProfileActivity.this.startActivity(changeVisibilityIntent);
     }
 
+    public void editProfile(View view){
+        Intent editProfileIntent = new Intent(MyProfileActivity.this, EditProfileActivity.class);
+        editProfileIntent.putExtra("user", username);     //Pass username to next activity
+        MyProfileActivity.this.startActivity(editProfileIntent);
+    }
+
 
 
 }
