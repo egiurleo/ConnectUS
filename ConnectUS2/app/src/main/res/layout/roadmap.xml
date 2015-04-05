@@ -1,42 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView" android:layout_gravity="center_horizontal" android:textSize="20dp"
-        android:text="hello"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
 
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/myProfileButton"
-        android:layout_gravity="center_horizontal"
-        android:text="go to user profile"
-        android:onClick="myProfileClick">
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:background="@drawable/background"
+            android:layout_marginTop="20dp"
+            >
 
-    </Button>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/gettingStarted"
+                android:textSize="20dp"
+                android:text="Getting Started"
+                android:layout_centerInParent="true"/>
 
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/YourFriendsNameHere"
-        android:layout_gravity="center_horizontal"
-        android:text="go to friend's profile"
-        android:onClick="friendProfileClick">
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center|bottom"
+                android:src="@drawable/check"/>
 
-    </Button>
+        </RelativeLayout>
 
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/friendslistbutton"
-        android:layout_gravity="center_horizontal"
-        android:text="Go to friends list"
-        android:onClick="friendsListClick">
 
-    </Button>
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:background="@drawable/background"
+            android:layout_marginTop="20dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/n400"
+                android:textSize="20dp"
+                android:text="N-400 Form"
+                android:layout_centerInParent="true"/>
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center|bottom"
+                android:src="@drawable/check"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:background="@drawable/background"
+            android:layout_marginTop="20dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/biometrics"
+                android:textSize="20dp"
+                android:text="Biometrics Appointment"
+                android:gravity="center"
+                android:layout_centerInParent="true"/>
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center|bottom"
+                android:src="@drawable/check"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:background="@drawable/background"
+            android:layout_marginTop="20dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/interview"
+                android:textSize="20dp"
+                android:text="Nationalization Interview"
+                android:gravity="center"
+                android:layout_centerInParent="true"/>
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center|bottom"
+                android:src="@drawable/check"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp">
+
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:background="@drawable/background">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/accepted"
+                    android:textSize="20dp"
+                    android:text="Application Accepted"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"/>
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center|bottom"
+                    android:src="@drawable/check"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                android:background="@drawable/background"
+                android:layout_marginLeft="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/denied"
+                    android:textSize="20dp"
+                    android:text="Application Denied"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"/>
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center|bottom"
+                    android:src="@drawable/check"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/myProfileButton"
+            android:layout_gravity="center_horizontal"
+            android:text="go to user profile"
+            android:onClick="myProfileClick">
+
+        </Button>
+
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/YourFriendsNameHere"
+            android:layout_gravity="center_horizontal"
+            android:text="go to friend's profile"
+            android:onClick="friendProfileClick">
+
+        </Button>
+
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/friendslistbutton"
+            android:layout_gravity="center_horizontal"
+            android:text="Go to friends list"
+            android:onClick="friendsListClick">
+
+        </Button>
+    </LinearLayout>
+
+</ScrollView>

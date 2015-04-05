@@ -30,8 +30,6 @@ public class RoadmapActivity extends Activity {
         //get user object and display stuff based on that
         Intent intent = getIntent();
         username = intent.getStringExtra("user");
-        userDisplay = (TextView)findViewById(R.id.textView);
-        userDisplay.setText("username: " + username);
 
     }
 
