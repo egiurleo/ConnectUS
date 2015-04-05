@@ -13,4 +13,94 @@
         android:text="Change Visibility Settings">
     </TextView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name: "
+            android:textSize="20dp"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:id="@+id/name_spinner"
+            android:entries="@array/spinner"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: "
+            android:textSize="20dp"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:id="@+id/email_spinner"
+            android:entries="@array/spinner"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone: "
+            android:textSize="20dp"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:id="@+id/phone_spinner"
+            android:entries="@array/spinner"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Country: "
+            android:textSize="20dp"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:id="@+id/country_spinner"
+            android:entries="@array/spinner"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Language: "
+            android:textSize="20dp"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:id="@+id/langauge_spinner"
+            android:entries="@array/spinner"/>
+    </LinearLayout>
+
 </LinearLayout>
