@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 /**
  * Created by Jon M Beaulieu Jr on 3/27/2015.
@@ -37,6 +38,24 @@ public class RoadmapActivity extends Activity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.action_bar, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_notifications:
+                //open notification page
+                return true;
+            case R.id.action_profile:
+                myProfileClick(null);
+                return true;
+            case R.id.action_friends:
+                friendsListClick(null);
+                return true;
+            default:
+                return false;
+        }
     }
 
     public void myProfileClick(View view){
