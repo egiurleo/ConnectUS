@@ -10,7 +10,7 @@ import android.app.Activity;
 /**
  * Created by egiurleo on 4/4/15.
  */
-public class MapStepActivity extends Activity {
+public class MapStepActivity extends ConnectUSActivity {
 
     private String username;
 
@@ -28,10 +28,4 @@ public class MapStepActivity extends Activity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.action_bar, menu);
-        return true;
-    }
 }

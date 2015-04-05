@@ -10,7 +10,7 @@ import android.widget.*;
 
 import java.lang.Override;
 
-public class MyProfileActivity extends Activity {
+public class MyProfileActivity extends ConnectUSActivity {
 
     private String username;
 
@@ -19,7 +19,6 @@ public class MyProfileActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);  //Hides app title bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   //Hides Notification Bar
 
         setContentView(R.layout.myprofile);
@@ -29,9 +28,6 @@ public class MyProfileActivity extends Activity {
         username = intent.getStringExtra("user");
     }
 
-    public void editProfile(View view){
-        //edit profile
-    }
 
     public void changeVisibility(View view){
         Intent changeVisibilityIntent = new Intent(MyProfileActivity.this, ChangeVisibilityActivity.class);

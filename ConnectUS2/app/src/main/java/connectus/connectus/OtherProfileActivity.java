@@ -9,15 +9,15 @@ import android.widget.TextView;
 /**
  * Created by egiurleo on 3/31/15.
  */
-public class OtherProfileActivity extends Activity {
+public class OtherProfileActivity extends ConnectUSActivity {
 
     private String username;
 
     @Override
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);  //Hides app title bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   //Hides Notification Bar
 
         setContentView(R.layout.otherprofile);
