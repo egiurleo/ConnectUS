@@ -47,13 +47,9 @@ public class RoadmapActivity extends Activity {
     }
 
     public void friendProfileClick(View view){
-        //use view.getId() to identify the button, and thus identify which profile you're accessing
         Intent otherProfileIntent = new Intent(RoadmapActivity.this, OtherProfileActivity.class);
-        otherProfileIntent.putExtra("user", username);  //Pass username to next activity
+        otherProfileIntent.putExtra("user", username);
 
-        if(view.getId() == R.id.YourFriendsNameHere){ //do fancy stuff with view.getId() here
-            otherProfileIntent.putExtra("friend", "Friend!");
-        }
         RoadmapActivity.this.startActivity(otherProfileIntent);
     }
     
