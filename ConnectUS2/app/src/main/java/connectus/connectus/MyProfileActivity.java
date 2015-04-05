@@ -14,6 +14,7 @@ public class MyProfileActivity extends Activity {
 
     private String username;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +27,6 @@ public class MyProfileActivity extends Activity {
         //get user object and display stuff based on that
         Intent intent = getIntent();
         username = intent.getStringExtra("user");
-
-        this.updateView();
-    }
-
-    public void updateView(){
-        //update info about the user
     }
 
     public void editProfile(View view){
