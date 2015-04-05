@@ -14,7 +14,7 @@ import android.view.MenuItem;
 /**
  * Created by Jon M Beaulieu Jr on 3/27/2015.
  */
-public class RoadmapActivity extends Activity {
+public class RoadmapActivity extends ConnectUSActivity {
     private TextView userDisplay;
     private String username;
     private String friendName;
@@ -33,31 +33,6 @@ public class RoadmapActivity extends Activity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.action_bar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        switch (item.getItemId()) {
-            case R.id.action_notifications:
-                //open notification page
-                return true;
-            case R.id.action_profile:
-                myProfileClick(null);
-                return true;
-            case R.id.action_friends:
-                friendsListClick(null);
-                return true;
-            default:
-                return false;
-        }
-    }
-
     public void myProfileClick(View view){
         Intent myProfileIntent = new Intent(RoadmapActivity.this, MyProfileActivity.class);
         myProfileIntent.putExtra("user", username);     //Pass username to next activity
@@ -69,13 +44,6 @@ public class RoadmapActivity extends Activity {
         otherProfileIntent.putExtra("user", username);
 
         RoadmapActivity.this.startActivity(otherProfileIntent);
-    }
-    
-    public void friendsListClick(View view){
-        Intent friendsListIntent = new Intent(RoadmapActivity.this, FriendsListActivity.class);
-        friendsListIntent.putExtra("user", username);
-
-        RoadmapActivity.this.startActivity(friendsListIntent);
     }
 
     public void mapStepClick(View view){

@@ -8,7 +8,7 @@ import android.view.WindowManager;
 import android.view.View;
 import android.widget.TextView;
 
-public class FindFriendsActivity extends Activity {
+public class FindFriendsActivity extends ConnectUSActivity {
 
     private String username;
 
@@ -16,7 +16,6 @@ public class FindFriendsActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);  //Hides app title bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   //Hides Notification Bar
 
         setContentView(R.layout.findfriends);

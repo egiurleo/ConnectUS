@@ -8,4 +8,11 @@
     <string name="newNotificationsTitle">Pending Notifications</string>
     <string name="noNewNotificationsTitle">No New Notifications</string>
 
+    <string-array name="spinner">
+        <item>Friends Only</item>
+        <item>Everyone</item>
+    </string-array>
+
+    <string name="email_spinner_string">Make your email visible to:</string>
+
 </resources>
