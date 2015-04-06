@@ -9,15 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:layout_marginTop="20dp"
-            android:id="@+id/username"
-            android:text="Marisa's Profile" />
-
         <Button
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
@@ -40,6 +31,14 @@
             android:layout_gravity="center_horizontal"
             android:textSize="20dp"
             android:layout_marginTop="20dp"
+            android:id="@+id/name"
+            android:text="Name: Marisa P."/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="20dp"
             android:id="@+id/country"
             android:text="Country of Origin: Spain"/>
 

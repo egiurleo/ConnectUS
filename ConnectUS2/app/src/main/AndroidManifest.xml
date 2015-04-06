@@ -80,6 +80,10 @@
             android:name=".NotificationsActivity"
             android:label="Notifications" >
         </activity>
+        <activity
+            android:name=".EditProfileActivity"
+            android:label="Edit Profile" >
+        </activity>
     </application>
 
 </manifest>
