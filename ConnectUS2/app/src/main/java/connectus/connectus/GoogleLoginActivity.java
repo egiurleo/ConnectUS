@@ -65,9 +65,8 @@ public class GoogleLoginActivity extends FragmentActivity {
     }
     public void startNextActivity(Profile user) {
         Intent intent = new Intent(this, RoadmapActivity.class);
-        //Log.e("firstName", user.getFirstName());
+        Log.e("firstName", user.getFirstName());
         startActivityForResult(intent, request_code);
-
     }
 
     @Override
