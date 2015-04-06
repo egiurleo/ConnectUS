@@ -7,6 +7,7 @@
     <string name="title_activity_notifications">NotificationsActivity</string>
     <string name="newNotificationsTitle">Pending Notifications</string>
     <string name="noNewNotificationsTitle">No New Notifications</string>
+    <string name="facebook_app_id">986889918011728</string>
 
     <string-array name="spinner">
         <item>Friends Only</item>
@@ -236,5 +237,7 @@
 
 
     </string-array>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>
