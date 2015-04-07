@@ -22,6 +22,7 @@ public class GoogleLoginActivity extends FragmentActivity {
     private TextView message;
     private CallbackManager callbackManager;
     private static final int request_code = 5;
+    private LoginManager loginmanager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,8 +36,9 @@ public class GoogleLoginActivity extends FragmentActivity {
         setContentView(R.layout.login);
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("user_friends");
+        //loginButton.setReadPermissions("user_friends");
         loginButton.setReadPermissions("email");
+        loginmanager = LoginManager.getInstance();
         LoginManager.getInstance().logOut();
 
         LoginManager.getInstance().registerCallback(callbackManager,

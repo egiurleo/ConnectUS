@@ -1,15 +1,10 @@
 package connectus.connectus;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 /**
  * Created by Jon M Beaulieu Jr on 3/27/2015.
@@ -31,6 +26,7 @@ public class RoadmapActivity extends ConnectUSActivity {
         Intent intent = getIntent();
         username = intent.getStringExtra("user");
 
+        //Log.e("Profile", Profile.getCurrentProfile().getFirstName());
     }
 
     public void myProfileClick(View view){
@@ -52,5 +48,6 @@ public class RoadmapActivity extends ConnectUSActivity {
 
         RoadmapActivity.this.startActivity(mapStepIntent);
     }
+
 
 }

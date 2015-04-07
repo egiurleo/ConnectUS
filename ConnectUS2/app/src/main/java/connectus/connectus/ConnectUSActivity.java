@@ -2,6 +2,7 @@ package connectus.connectus;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,11 +33,21 @@ public class ConnectUSActivity extends Activity {
             case R.id.action_friends:
                 friendsListClick(null);
                 return true;
+            case R.id.action_logout:
+                logoutClick();
+                return true;
             default:
                 return false;
         }
     }
 
+    public void logoutClick() {
+        Log.e("loggingOut", "loggedout");
+        //LoginManager.getInstance().logOut();
+
+        Intent logoutIntent = new Intent(this, GoogleLoginActivity.class);
+        startActivity(logoutIntent);
+    }
     public void myProfileClick(){
         Intent myProfileIntent = new Intent(ConnectUSActivity.this, MyProfileActivity.class);
         //myProfileIntent.putExtra("user", username);     //Pass username to next activity
