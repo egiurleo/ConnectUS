@@ -14,6 +14,26 @@
         <item>Everyone</item>
     </string-array>
 
+    <!---Stuff for map-->
+    <string name="getting_started_title">Getting Started</string>
+    <string name="getting_started_text">Before you can even become a citizen...</string>
+
+    <string name="n400_title">Submitting N-400</string>
+    <string name="n400_text">You have to submit this form...</string>
+
+    <string name="biometrics_title">Biometrics</string>
+    <string name="biometrics_text">The biometrics appointment will be made for you by the government once you have submitted your N-400 form.</string>
+
+    <string name="interview_title">Naturalization Interview</string>
+    <string name="interview_text">You are going to get an appointment for a naturalization interview... </string>
+
+    <string name="accepted_title">Accepted</string>
+    <string name="accepted_text">If your application is accepted...</string>
+
+    <string name="denied_title">Interview</string>
+    <string name="denied_text">If your application is denied...</string>
+
+
     <string name="email_spinner_string">Make your email visible to:</string>
 
     <string-array name="countries">

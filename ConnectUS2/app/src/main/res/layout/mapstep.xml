@@ -6,10 +6,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/details_title"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:textSize="30dp"
-        android:text="Biometrics Appointment"/>
+        android:textSize="30dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -31,12 +31,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/details_text"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:textSize="20dp"
-        android:text="The biometrics appointment will be made for you by the government once you have submitted your N-400 form."/>
-
-
+        android:text=""/>
 
 </LinearLayout>

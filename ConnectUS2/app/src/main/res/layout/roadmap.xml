@@ -15,12 +15,12 @@
             android:layout_height="100dp"
             android:background="@drawable/background"
             android:layout_marginTop="20dp"
+            android:id="@+id/getting_started"
             android:onClick="mapStepClick">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/gettingStarted"
                 android:textSize="20dp"
                 android:text="Getting Started"
                 android:layout_centerInParent="true"/>
@@ -46,12 +46,12 @@
             android:layout_height="100dp"
             android:background="@drawable/background"
             android:layout_marginTop="20dp"
+            android:id="@+id/n400"
             android:onClick="mapStepClick">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/n400"
                 android:textSize="20dp"
                 android:text="N-400 Form"
                 android:layout_centerInParent="true"/>
@@ -69,12 +69,12 @@
             android:layout_height="100dp"
             android:background="@drawable/background"
             android:layout_marginTop="20dp"
+            android:id="@+id/biometrics"
             android:onClick="mapStepClick">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/biometrics"
                 android:textSize="20dp"
                 android:text="Biometrics Appointment"
                 android:gravity="center"
@@ -100,15 +100,15 @@
             android:layout_width="150dp"
             android:layout_height="100dp"
             android:background="@drawable/background"
+            android:id="@+id/interview"
             android:layout_marginTop="20dp"
             android:onClick="mapStepClick">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/interview"
                 android:textSize="20dp"
-                android:text="Nationalization Interview"
+                android:text="Naturalization Interview"
                 android:gravity="center"
                 android:layout_centerInParent="true"/>
 
@@ -131,12 +131,12 @@
                 android:layout_width="120dp"
                 android:layout_height="100dp"
                 android:background="@drawable/background"
+                android:id="@+id/accepted"
                 android:onClick="mapStepClick">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/accepted"
                     android:textSize="20dp"
                     android:text="Application Accepted"
                     android:gravity="center"
@@ -155,12 +155,12 @@
                 android:layout_height="100dp"
                 android:background="@drawable/background"
                 android:layout_marginLeft="20dp"
+                android:id="@+id/denied"
                 android:onClick="mapStepClick">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/denied"
                     android:textSize="20dp"
                     android:text="Application Denied"
                     android:gravity="center"
