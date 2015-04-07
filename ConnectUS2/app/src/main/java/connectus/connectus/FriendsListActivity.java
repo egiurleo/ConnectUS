@@ -19,7 +19,6 @@ public class FriendsListActivity extends ConnectUSActivity {
         super.onCreate(savedInstanceState);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   //Hides Notification Bar
-
         setContentView(R.layout.friendslist);
 
         //get user object and display stuff based on that
@@ -37,19 +36,30 @@ public class FriendsListActivity extends ConnectUSActivity {
     }
 
     public void showFriends(){
-        String[] placeholderNames = {"Name 1", "Name 2", "Name 3"};
 
-        LinearLayout ll = (LinearLayout) this.findViewById(R.id.friends);
+        //taking this out for now
+        //will put it back when we include server functionality
 
-        for (String name : placeholderNames){
-            // Add text
-            TextView tv = new TextView(this);
-            tv.setText(name);
-            ll.addView(tv);
-        }
+//        String[] placeholderNames = {"Name 1", "Name 2", "Name 3"};
+//
+//        LinearLayout ll = (LinearLayout) this.findViewById(R.id.friends);
+//
+//        for (String name : placeholderNames){
+//            // Add text
+//            TextView tv = new TextView(this);
+//            tv.setText(name);
+//            ll.addView(tv);
+//        }
 
         // Display the view
         //setContentView(R.layout.friendslist);
+    }
+
+    public void friendsProfile(View view){
+        Intent otherProfileIntent = new Intent(this, OtherProfileActivity.class);
+        otherProfileIntent.putExtra("user", username);
+
+        this.startActivity(otherProfileIntent);
     }
 
 }
