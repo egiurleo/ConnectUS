@@ -39,11 +39,7 @@ public class FriendsListActivity extends ConnectUSActivity {
     public void showFriends(){
         String[] placeholderNames = {"Name 1", "Name 2", "Name 3"};
 
-        ScrollView sv = (ScrollView) this.findViewById(R.id.scrollView);
-
-        // Create a LinearLayout element
-        LinearLayout ll = new LinearLayout(this);
-        ll.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout ll = (LinearLayout) this.findViewById(R.id.friends);
 
         for (String name : placeholderNames){
             // Add text
@@ -52,10 +48,8 @@ public class FriendsListActivity extends ConnectUSActivity {
             ll.addView(tv);
         }
 
-        // Add the LinearLayout element to the ScrollView
-        sv.addView(ll);
         // Display the view
-        setContentView(R.layout.friendslist);
+        //setContentView(R.layout.friendslist);
     }
 
 }
