@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.view.View;
 import android.widget.TextView;
-import android.support.v4.view.ViewPager;
+
 
 /**
  * Created by Jon M Beaulieu Jr on 3/27/2015.
@@ -27,6 +27,7 @@ public class RoadmapActivity extends ConnectUSActivity {
         Intent intent = getIntent();
         username = intent.getStringExtra("user");
 
+        //Log.e("Profile", Profile.getCurrentProfile().getFirstName());
     }
 
     public void myProfileClick(View view){
@@ -47,5 +48,6 @@ public class RoadmapActivity extends ConnectUSActivity {
         mapStepIntent.putExtra("buttonID", getResources().getResourceEntryName(view.getId()));
         RoadmapActivity.this.startActivity(mapStepIntent);
     }
+
 
 }
