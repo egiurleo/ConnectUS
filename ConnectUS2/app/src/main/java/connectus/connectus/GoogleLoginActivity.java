@@ -31,6 +31,9 @@ public class GoogleLoginActivity extends FragmentActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);  //Hides app title bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   //Hides Notification Bar
 
+        Test test = new Test();
+        test.execute();
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.login);
