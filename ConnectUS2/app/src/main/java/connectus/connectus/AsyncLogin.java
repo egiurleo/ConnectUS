@@ -34,39 +34,35 @@ public class AsyncLogin extends AsyncTask <String, Void, String> {
         String firstName = args[1];
         String lastName = args[2];
 
-        System.out.println(id + ", " + firstName + " " + lastName);
-
         //if this username exists...
+        System.out.println("http://egiurleo.scripts.mit.edu/checkUserExists.php?userId=" + id);
         HttpGet httpUserExists = new HttpGet("http://egiurleo.scripts.mit.edu/checkUserExists.php?userId=" + id);
 
         try{
             HttpResponse response = httpclient.execute(httpUserExists);
 
             if(response != null){
-                System.out.println("first response != null!");
                 InputStream inputStream = response.getEntity().getContent();
 
+                String q = convertStreamToString(inputStream);
+                System.out.println(q);
 
                 //if this user doesn't exist, put their information on the db
-                if(convertStreamToString(inputStream).equals("false")){
-                    System.out.println("registering");
+                if(q.equals("false")){
                     HttpGet httpRegister = new HttpGet("http://egiurleo.scripts.mit.edu/register.php?userId=" + id + "&firstName=" + firstName + "&lastName=" + lastName);
                     HttpResponse registerResponse = httpclient.execute(httpRegister);
-
                 }
-
-                System.out.println("getting user info");
 
                 //get their info and cache it
                 HttpGet httpGetUserInfo = new HttpGet("http://egiurleo.scripts.mit.edu/getUserInfo.php?userId=" + id);
                 HttpResponse userInfoResponse = httpclient.execute(httpGetUserInfo);
 
                 if(userInfoResponse != null){
-                    System.out.println("second response isn't null1");
                     InputStream inputStream2 = userInfoResponse.getEntity().getContent();
 
                     //return the string to be cached
-                    return convertStreamToString(inputStream2);
+                    String x = convertStreamToString(inputStream2);
+                    return x;
                 }
 
             }else{
