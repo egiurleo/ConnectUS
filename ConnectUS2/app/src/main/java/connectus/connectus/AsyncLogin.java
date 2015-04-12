@@ -34,7 +34,7 @@ public class AsyncLogin extends AsyncTask <String, Void, String> {
         String name = args[1];
 
         //if this username exists...
-        HttpGet httpUserExists = new HttpGet("http://jbeau16.scripts.mit.edu/checkUserExists.php?userId=" + id);
+        HttpGet httpUserExists = new HttpGet("http://egiurleo.scripts.mit.edu/checkUserExists.php?userId=" + id);
 
         try{
             HttpResponse response = httpclient.execute(httpUserExists);
@@ -49,7 +49,7 @@ public class AsyncLogin extends AsyncTask <String, Void, String> {
                 }
 
                 //get their info and cache it
-                HttpGet httpGetUserInfo = new HttpGet("http://jbeau16.scripts.mit.edu/getUserInfo.php?userId=" + id);
+                HttpGet httpGetUserInfo = new HttpGet("http://egiurleo.scripts.mit.edu/getUserInfo.php?userId=" + id);
                 HttpResponse userInfoResponse = httpclient.execute(httpGetUserInfo);
 
                 if(userInfoResponse != null){
