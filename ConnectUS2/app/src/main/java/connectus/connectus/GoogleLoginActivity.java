@@ -49,10 +49,11 @@ public class GoogleLoginActivity extends FragmentActivity {
                         Log.e("Login", "SUCCESS!");
                         Profile curProfile = Profile.getCurrentProfile();
                         String id = curProfile.getId();
-                        String name = curProfile.getName();
+                        String firstName = curProfile.getFirstName();
+                        String lastName = curProfile.getLastName();
 
                         AsyncLogin login = new AsyncLogin(getApplicationContext());
-                        login.execute(id, name);
+                        login.execute(id, firstName, lastName);
 
                         startNextActivity(curProfile);
                     }

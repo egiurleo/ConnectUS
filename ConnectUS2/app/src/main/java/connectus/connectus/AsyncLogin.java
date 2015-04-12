@@ -31,7 +31,10 @@ public class AsyncLogin extends AsyncTask <String, Void, String> {
         HttpClient httpclient = new DefaultHttpClient();
 
         String id = args[0];
-        String name = args[1];
+        String firstName = args[1];
+        String lastName = args[2];
+
+        System.out.println(id + ", " + firstName + " " + lastName);
 
         //if this username exists...
         HttpGet httpUserExists = new HttpGet("http://egiurleo.scripts.mit.edu/checkUserExists.php?userId=" + id);
@@ -40,23 +43,30 @@ public class AsyncLogin extends AsyncTask <String, Void, String> {
             HttpResponse response = httpclient.execute(httpUserExists);
 
             if(response != null){
+                System.out.println("first response != null!");
                 InputStream inputStream = response.getEntity().getContent();
 
+
                 //if this user doesn't exist, put their information on the db
-                if(convertStreamToString(inputStream) == "false"){
-                    HttpGet httpRegister = new HttpGet("http://jbeau16.scripts.mit.edu/register.php?userId=" + id + "&name=" + name);
-                    //nothing returned in this method
+                if(convertStreamToString(inputStream).equals("false")){
+                    System.out.println("registering");
+                    HttpGet httpRegister = new HttpGet("http://egiurleo.scripts.mit.edu/register.php?userId=" + id + "&firstName=" + firstName + "&lastName=" + lastName);
+                    HttpResponse registerResponse = httpclient.execute(httpRegister);
+
                 }
+
+                System.out.println("getting user info");
 
                 //get their info and cache it
                 HttpGet httpGetUserInfo = new HttpGet("http://egiurleo.scripts.mit.edu/getUserInfo.php?userId=" + id);
                 HttpResponse userInfoResponse = httpclient.execute(httpGetUserInfo);
 
                 if(userInfoResponse != null){
-                    inputStream = response.getEntity().getContent();
+                    System.out.println("second response isn't null1");
+                    InputStream inputStream2 = userInfoResponse.getEntity().getContent();
 
                     //return the string to be cached
-                    return convertStreamToString(inputStream);
+                    return convertStreamToString(inputStream2);
                 }
 
             }else{
@@ -71,7 +81,7 @@ public class AsyncLogin extends AsyncTask <String, Void, String> {
 
     protected void onPostExecute(String result){
         //cache results
-        String fileName = "user_info";
+        String fileName = "connectus_user_info";
         String string = result;
 
         try{
