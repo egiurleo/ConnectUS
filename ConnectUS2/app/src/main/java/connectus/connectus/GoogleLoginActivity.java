@@ -31,9 +31,6 @@ public class GoogleLoginActivity extends FragmentActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);  //Hides app title bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   //Hides Notification Bar
 
-        Test test = new Test();
-        test.execute();
-
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.login);
@@ -51,6 +48,12 @@ public class GoogleLoginActivity extends FragmentActivity {
                         // App code
                         Log.e("Login", "SUCCESS!");
                         Profile curProfile = Profile.getCurrentProfile();
+                        String id = curProfile.getId();
+                        String name = curProfile.getName();
+
+                        AsyncLogin login = new AsyncLogin(getApplicationContext());
+                        login.execute(id, name);
+
                         startNextActivity(curProfile);
                     }
 
@@ -68,6 +71,7 @@ public class GoogleLoginActivity extends FragmentActivity {
                 });
 
     }
+
     public void startNextActivity(Profile user) {
         Intent intent = new Intent(this, RoadmapActivity.class);
         Log.e("firstName", user.getFirstName());
