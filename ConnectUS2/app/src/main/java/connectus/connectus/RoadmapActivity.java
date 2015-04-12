@@ -27,7 +27,9 @@ public class RoadmapActivity extends ConnectUSActivity {
         Intent intent = getIntent();
         username = intent.getStringExtra("user");
 
-        //Log.e("Profile", Profile.getCurrentProfile().getFirstName());
+        AsyncRoadmap roadmapBackground = new AsyncRoadmap(getApplicationContext());
+        roadmapBackground.execute();
+
     }
 
     public void myProfileClick(View view){

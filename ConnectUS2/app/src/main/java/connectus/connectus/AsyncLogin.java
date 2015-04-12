@@ -35,7 +35,6 @@ public class AsyncLogin extends AsyncTask <String, Void, String> {
         String lastName = args[2];
 
         //if this username exists...
-        System.out.println("http://egiurleo.scripts.mit.edu/checkUserExists.php?userId=" + id);
         HttpGet httpUserExists = new HttpGet("http://egiurleo.scripts.mit.edu/checkUserExists.php?userId=" + id);
 
         try{
@@ -45,7 +44,6 @@ public class AsyncLogin extends AsyncTask <String, Void, String> {
                 InputStream inputStream = response.getEntity().getContent();
 
                 String q = convertStreamToString(inputStream);
-                System.out.println(q);
 
                 //if this user doesn't exist, put their information on the db
                 if(q.equals("false")){
