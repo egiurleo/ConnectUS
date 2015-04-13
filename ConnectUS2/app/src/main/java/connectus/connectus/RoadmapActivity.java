@@ -11,7 +11,7 @@ import android.view.WindowManager;
  */
 public class RoadmapActivity extends ConnectUSActivity {
     public int mapPos;
-    private int id;
+    private String id;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,9 @@ public class RoadmapActivity extends ConnectUSActivity {
         setContentView(R.layout.roadmap);
 
         Intent intent = getIntent();
-        id = intent.getIntExtra("userId", 0);
+        id = intent.getStringExtra("userId");
+
+        System.out.println("doing asyncroadmap again");
 
         AsyncRoadmap roadmapBackground = new AsyncRoadmap(getApplicationContext(), RoadmapActivity.this, this);
         roadmapBackground.execute();
@@ -44,7 +46,25 @@ public class RoadmapActivity extends ConnectUSActivity {
         mapStepIntent.putExtra("buttonID", getResources().getResourceEntryName(view.getId()));
         mapStepIntent.putExtra("mapPos", mapPos);
         mapStepIntent.putExtra("userId", id);
-        RoadmapActivity.this.startActivity(mapStepIntent);
+        RoadmapActivity.this.startActivityForResult(mapStepIntent, 1);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        System.out.println("getting result");
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK){
+                if(data.getStringExtra("result").equals("true")){
+                    System.out.println("this should work!");
+                    AsyncRoadmap roadmapBackground = new AsyncRoadmap(getApplicationContext(), RoadmapActivity.this, this);
+                    roadmapBackground.execute();
+                }else{
+                    //do nothing
+                }
+            }
+            if (resultCode == RESULT_CANCELED) {
+                //do nothing
+            }
+        }
     }
 
 

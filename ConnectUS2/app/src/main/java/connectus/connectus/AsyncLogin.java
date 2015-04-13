@@ -28,11 +28,21 @@ public class AsyncLogin extends AsyncTask <String, Void, String> {
 
     @Override
     protected String doInBackground(String... args){
+        System.out.println("in asynclogin");
         HttpClient httpclient = new DefaultHttpClient();
 
-        String id = args[0];
-        String firstName = args[1];
-        String lastName = args[2];
+        String id;
+        String firstName = null;
+        String lastName = null;
+
+        if(args.length == 3) {
+            id = args[0];
+            firstName = args[1];
+            lastName = args[2];
+
+        }else{
+            id = args[0];
+        }
 
         //if this username exists...
         HttpGet httpUserExists = new HttpGet("http://egiurleo.scripts.mit.edu/checkUserExists.php?userId=" + id);
@@ -52,6 +62,7 @@ public class AsyncLogin extends AsyncTask <String, Void, String> {
                 }
 
                 //get their info and cache it
+                System.out.println("getting response");
                 HttpGet httpGetUserInfo = new HttpGet("http://egiurleo.scripts.mit.edu/getUserInfo.php?userId=" + id);
                 HttpResponse userInfoResponse = httpclient.execute(httpGetUserInfo);
 
@@ -60,6 +71,7 @@ public class AsyncLogin extends AsyncTask <String, Void, String> {
 
                     //return the string to be cached
                     String x = convertStreamToString(inputStream2);
+                    System.out.println("From async login: " + x);
                     return x;
                 }
 
@@ -75,6 +87,7 @@ public class AsyncLogin extends AsyncTask <String, Void, String> {
 
     protected void onPostExecute(String result){
         //cache results
+        System.out.println("caching");
         String fileName = "connectus_user_info";
         String string = result;
 

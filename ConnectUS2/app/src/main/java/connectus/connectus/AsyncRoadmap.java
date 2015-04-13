@@ -2,7 +2,6 @@ package connectus.connectus;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -41,7 +40,7 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
             while(scanner.hasNext()){
                 returnString = scanner.nextLine();
             }
-
+            System.out.println(returnString);
             return returnString.split("\\|");
 
 
@@ -56,9 +55,11 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
     protected void onPostExecute(String[] result){
         int mapPos = Integer.parseInt(result[10]);
 
+        System.out.println("mapPos: " + mapPos);
+
         for(int i = 1; i <= mapPos; i++){
             String id = "step" + i;
-            int resourceId = Resources.getSystem().getIdentifier(id, "id", context.getPackageName());
+            int resourceId = context.getResources().getIdentifier(id, "id", context.getPackageName());
             ImageView imgView = (ImageView) activity.findViewById(resourceId);
             imgView.setVisibility(View.VISIBLE);
         }

@@ -15,7 +15,8 @@ public class MapStepActivity extends ConnectUSActivity {
     private String buttonId;
     private int mapPos;
     private int myPos;
-    private int id;
+    private String id;
+    private boolean stuffChanged;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,9 @@ public class MapStepActivity extends ConnectUSActivity {
         mapPos = intent.getIntExtra("mapPos", 0);
         int myPosId = getResources().getIdentifier(buttonId + "_number", "string", getApplicationContext().getPackageName());
         myPos = Integer.parseInt(getString(myPosId));
-        id = intent.getIntExtra("userId", 0);
+        id = intent.getStringExtra("userId");
+
+        stuffChanged = false;
 
         createView();
     }
@@ -59,10 +62,36 @@ public class MapStepActivity extends ConnectUSActivity {
     public void onCheckboxClick(View view){
         CheckBox checkbox = (CheckBox) findViewById(R.id.map_step_checkbox);
 
-        if(checkbox.isEnabled()){
-            AsyncMapStep asyncMapStep = new AsyncMapStep(id, myPos, true);
+        AsyncMapStep asyncMapStep;
+
+        if(checkbox.isChecked()){
+            asyncMapStep = new AsyncMapStep(id, myPos, true, getApplicationContext());
         }else{
-            AsyncMapStep asyncMapStep = new AsyncMapStep(id, myPos, false);
+            asyncMapStep = new AsyncMapStep(id, myPos, false, getApplicationContext());
+        }
+
+        asyncMapStep.execute();
+
+        if(stuffChanged){
+            stuffChanged = false;
+        }else{
+            stuffChanged = true;
+        }
+
+    }
+
+    @Override
+    public void onBackPressed(){
+
+        if(stuffChanged) {
+            System.out.println("stuff changed!");
+
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("result", "true");
+            setResult(RESULT_OK, returnIntent);
+            finish();
+        }else{
+            super.onBackPressed();
         }
 
     }
