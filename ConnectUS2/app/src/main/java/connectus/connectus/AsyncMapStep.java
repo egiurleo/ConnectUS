@@ -1,14 +1,9 @@
 package connectus.connectus;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.IOException;
 
 public class AsyncMapStep extends AsyncTask<Void, Void, Void> {
     private boolean checkboxEnabled;
@@ -32,12 +27,12 @@ public class AsyncMapStep extends AsyncTask<Void, Void, Void> {
             newMapPos = mapPos-1;
         }
 
-        try {
-            HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/changeMapPos.php?userId=" + userId + "&mapPos=" + newMapPos);
-            HttpResponse response = httpclient.execute(httprequest);
-        }catch (IOException e){
-            Log.e("Exception", "IOException");
-        }
+//        try {
+//            HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/changeMapPos.php?userId=" + userId + "&mapPos=" + newMapPos);
+//            HttpResponse response = httpclient.execute(httprequest);
+//        }catch (IOException e){
+//            Log.e("Exception", "IOException");
+//        }
 
         return null;
     }

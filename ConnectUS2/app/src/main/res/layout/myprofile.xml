@@ -32,7 +32,7 @@
             android:textSize="20dp"
             android:layout_marginTop="20dp"
             android:id="@+id/name"
-            android:text="Name: Marisa P."/>
+            android:text=""/>
 
         <TextView
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             android:layout_gravity="center_horizontal"
             android:textSize="20dp"
             android:id="@+id/country"
-            android:text="Country of Origin: Spain"/>
+            android:text=""/>
 
         <TextView
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:layout_gravity="center_horizontal"
             android:textSize="20dp"
             android:id="@+id/languages"
-            android:text="Languages: Spanish, Catalan"/>
+            android:text=""/>
 
         <TextView
             android:layout_height="wrap_content"
@@ -56,14 +56,14 @@
             android:layout_gravity="center_horizontal"
             android:textSize="20dp"
             android:id="@+id/email"
-            android:text="Email: marisa@gmail.com"/>
+            android:text=""/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:textSize="20dp"
-            android:text="Phone: 679-073-2456"
+            android:text=""
             android:id="@+id/phone"/>
 
         <TextView
@@ -72,8 +72,15 @@
             android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
             android:textSize="20dp"
-            android:text="I'm willing to help!"
-            android:id="@+id/help"/>
+            android:text="I'm willing to help."
+            android:id="@+id/willing_to_help"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="20dp"
+            android:text="I'm looking for help."
+            android:id="@+id/looking_for_help"/>
 
         <Button
             android:layout_height="wrap_content"

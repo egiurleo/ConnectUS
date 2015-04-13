@@ -1,14 +1,9 @@
 package connectus.connectus;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.View;
-import android.widget.*;
-
-import java.lang.Override;
+import android.view.WindowManager;
 
 public class MyProfileActivity extends ConnectUSActivity {
 
@@ -26,6 +21,9 @@ public class MyProfileActivity extends ConnectUSActivity {
         //get user object and display stuff based on that
         Intent intent = getIntent();
         username = intent.getStringExtra("user");
+
+        AsyncProfile asyncProfile = new AsyncProfile(getApplicationContext(), MyProfileActivity.this);
+        asyncProfile.execute();
     }
 
 
