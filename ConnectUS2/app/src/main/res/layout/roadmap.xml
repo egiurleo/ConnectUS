@@ -35,14 +35,6 @@
 
         </RelativeLayout>
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:id="@+id/myProfilePicture"
-            android:onClick="myProfileClick"
-            android:src="@drawable/flower"/>
-
         <RelativeLayout
             android:layout_width="150dp"
             android:layout_height="100dp"
@@ -93,14 +85,6 @@
                 android:visibility="invisible"/>
 
         </RelativeLayout>
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:id="@+id/otherProfilePicture"
-            android:onClick="friendProfileClick"
-            android:src="@drawable/flower2"/>
 
         <RelativeLayout
             android:layout_width="150dp"

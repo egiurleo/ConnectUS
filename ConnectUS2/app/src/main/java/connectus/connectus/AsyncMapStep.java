@@ -34,7 +34,12 @@ public class AsyncMapStep extends AsyncTask<Void, Void, Void> {
         if(checkboxEnabled){
             newMapPos = mapPos;
         }else{
-            newMapPos = mapPos-1;
+            if(mapPos == 6){
+                newMapPos = mapPos - 2;
+            }else{
+                newMapPos = mapPos-1;
+            }
+
         }
 
         try {

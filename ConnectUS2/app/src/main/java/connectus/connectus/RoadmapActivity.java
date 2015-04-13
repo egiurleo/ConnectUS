@@ -52,17 +52,12 @@ public class RoadmapActivity extends ConnectUSActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         System.out.println("getting result");
         if (requestCode == 1) {
-            if(resultCode == RESULT_OK){
-                if(data.getStringExtra("result").equals("true")){
+            if(resultCode == RESULT_OK) {
+                if (data.getStringExtra("result").equals("true")) {
                     System.out.println("this should work!");
                     AsyncRoadmap roadmapBackground = new AsyncRoadmap(getApplicationContext(), RoadmapActivity.this, this);
                     roadmapBackground.execute();
-                }else{
-                    //do nothing
                 }
-            }
-            if (resultCode == RESULT_CANCELED) {
-                //do nothing
             }
         }
     }

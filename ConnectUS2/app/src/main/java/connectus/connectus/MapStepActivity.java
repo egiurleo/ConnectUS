@@ -51,10 +51,22 @@ public class MapStepActivity extends ConnectUSActivity {
 
         CheckBox checkbox = (CheckBox) findViewById(R.id.map_step_checkbox);
         //fix up checkbox
-        if(mapPos >= myPos){
+        if(mapPos > myPos) {
             checkbox.setChecked(true);
-        }else if(mapPos < myPos - 1){
             checkbox.setEnabled(false);
+        }else if(mapPos == myPos) {
+            checkbox.setChecked(true);
+        }else if(myPos == mapPos + 1){
+            if(myPos == 6 && mapPos == 5) {
+                checkbox.setEnabled(false);
+            }
+        }else if(mapPos < myPos - 1){
+            if(myPos == 6 && mapPos == 4) {
+                checkbox.setEnabled(true);
+            }else{
+                checkbox.setEnabled(false);
+            }
+
         }
 
     }
