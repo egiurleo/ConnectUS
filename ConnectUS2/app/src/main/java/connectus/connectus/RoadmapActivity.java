@@ -27,7 +27,7 @@ public class RoadmapActivity extends ConnectUSActivity {
         Intent intent = getIntent();
         username = intent.getStringExtra("user");
 
-        AsyncRoadmap roadmapBackground = new AsyncRoadmap(getApplicationContext());
+        AsyncRoadmap roadmapBackground = new AsyncRoadmap(getApplicationContext(), RoadmapActivity.this);
         roadmapBackground.execute();
 
     }

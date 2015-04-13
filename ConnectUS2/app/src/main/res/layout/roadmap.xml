@@ -29,7 +29,9 @@
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center|bottom"
-                android:src="@drawable/check"/>
+                android:src="@drawable/check"
+                android:id="@+id/step1"
+                android:visibility="invisible"/>
 
         </RelativeLayout>
 
@@ -60,7 +62,9 @@
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center|bottom"
-                android:src="@drawable/check"/>
+                android:src="@drawable/check"
+                android:id="@+id/step2"
+                android:visibility="invisible"/>
 
         </RelativeLayout>
 
@@ -84,7 +88,9 @@
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center|bottom"
-                android:src="@drawable/check"/>
+                android:src="@drawable/check"
+                android:id="@+id/step3"
+                android:visibility="invisible"/>
 
         </RelativeLayout>
 
@@ -116,7 +122,9 @@
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center|bottom"
-                android:src="@drawable/check"/>
+                android:src="@drawable/check"
+                android:id="@+id/step4"
+                android:visibility="invisible"/>
 
         </RelativeLayout>
 
@@ -146,7 +154,9 @@
                     android:layout_width="120dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center|bottom"
-                    android:src="@drawable/check"/>
+                    android:src="@drawable/check"
+                    android:id="@+id/step5"
+                    android:visibility="invisible"/>
 
             </RelativeLayout>
 
@@ -170,7 +180,9 @@
                     android:layout_width="120dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center|bottom"
-                    android:src="@drawable/check"/>
+                    android:src="@drawable/check"
+                    android:id="@+id/step6"
+                    android:visibility="invisible"/>
 
             </RelativeLayout>
 
