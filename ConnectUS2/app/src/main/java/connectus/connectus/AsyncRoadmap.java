@@ -19,10 +19,12 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
 
     private Context context;
     private Activity activity;
+    private RoadmapActivity rma;
 
-    public AsyncRoadmap(Context context, Activity activity){
+    public AsyncRoadmap(Context context, Activity activity, RoadmapActivity rma){
         this.context = context;
         this.activity = activity;
+        this.rma = rma;
     }
 
     @Override
@@ -56,10 +58,12 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
 
         for(int i = 1; i <= mapPos; i++){
             String id = "step" + i;
-            int resourceId = Resources.getSystem().getIdentifier(id, "id", "android");
+            int resourceId = Resources.getSystem().getIdentifier(id, "id", context.getPackageName());
             ImageView imgView = (ImageView) activity.findViewById(resourceId);
             imgView.setVisibility(View.VISIBLE);
         }
+
+        rma.mapPos = mapPos;
     }
 
 

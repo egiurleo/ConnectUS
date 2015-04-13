@@ -11,6 +11,8 @@ import android.widget.TextView;
 public class MapStepActivity extends ConnectUSActivity {
 
     private String buttonId;
+    private int mapPos;
+    private int myPos;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,10 @@ public class MapStepActivity extends ConnectUSActivity {
 
         Intent intent = getIntent();
         buttonId = intent.getStringExtra("buttonID");
+
+        mapPos = Integer.parseInt(intent.getStringExtra("mapPos"));
+        int myPosId = getResources().getIdentifier(buttonId + "_number", "string", getApplicationContext().getPackageName());
+        myPos = Integer.parseInt(getString(myPosId));
 
         createView();
     }
@@ -37,6 +43,9 @@ public class MapStepActivity extends ConnectUSActivity {
 
         detailsTitle.setText(titleId);
         detailsText.setText(textId);
+
+        //fix up checkbox
+
 
     }
 

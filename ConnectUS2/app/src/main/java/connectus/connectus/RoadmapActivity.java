@@ -2,18 +2,15 @@ package connectus.connectus;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.WindowManager;
 import android.view.View;
-import android.widget.TextView;
+import android.view.WindowManager;
 
 
 /**
  * Created by Jon M Beaulieu Jr on 3/27/2015.
  */
 public class RoadmapActivity extends ConnectUSActivity {
-    private TextView userDisplay;
-    private String username;
-    private String friendName;
+    public int mapPos;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,31 +20,26 @@ public class RoadmapActivity extends ConnectUSActivity {
 
         setContentView(R.layout.roadmap);
 
-        //get user object and display stuff based on that
-        Intent intent = getIntent();
-        username = intent.getStringExtra("user");
-
-        AsyncRoadmap roadmapBackground = new AsyncRoadmap(getApplicationContext(), RoadmapActivity.this);
+        AsyncRoadmap roadmapBackground = new AsyncRoadmap(getApplicationContext(), RoadmapActivity.this, this);
         roadmapBackground.execute();
 
     }
 
     public void myProfileClick(View view){
         Intent myProfileIntent = new Intent(RoadmapActivity.this, MyProfileActivity.class);
-        myProfileIntent.putExtra("user", username);     //Pass username to next activity
         RoadmapActivity.this.startActivity(myProfileIntent);
     }
 
     public void friendProfileClick(View view){
         Intent otherProfileIntent = new Intent(RoadmapActivity.this, OtherProfileActivity.class);
-        otherProfileIntent.putExtra("user", username);
-
         RoadmapActivity.this.startActivity(otherProfileIntent);
     }
 
     public void mapStepClick(View view){
+        System.out.println(mapPos);
         Intent mapStepIntent = new Intent(RoadmapActivity.this, MapStepActivity.class);
         mapStepIntent.putExtra("buttonID", getResources().getResourceEntryName(view.getId()));
+        mapStepIntent.putExtra("mapPos", mapPos);
         RoadmapActivity.this.startActivity(mapStepIntent);
     }
 
