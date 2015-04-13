@@ -3,6 +3,7 @@ package connectus.connectus;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 /**
@@ -36,16 +37,19 @@ public class MapStepActivity extends ConnectUSActivity {
         TextView detailsTitle = (TextView) findViewById(R.id.details_title);
         TextView detailsText = (TextView) findViewById(R.id.details_text);
 
-        System.out.println(buttonId + "_title");
-
         int titleId = getResources().getIdentifier(buttonId + "_title", "string", getApplicationContext().getPackageName());
         int textId = getResources().getIdentifier(buttonId + "_text", "string", getApplicationContext().getPackageName());
 
         detailsTitle.setText(titleId);
         detailsText.setText(textId);
 
+        CheckBox checkbox = (CheckBox) findViewById(R.id.map_step_checkbox);
         //fix up checkbox
-
+        if(mapPos >= myPos){
+            checkbox.setChecked(true);
+        }else if(mapPos < myPos - 1){
+            checkbox.setEnabled(false);
+        }
 
     }
 

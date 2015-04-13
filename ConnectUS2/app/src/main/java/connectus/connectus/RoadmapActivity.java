@@ -36,10 +36,9 @@ public class RoadmapActivity extends ConnectUSActivity {
     }
 
     public void mapStepClick(View view){
-        System.out.println(mapPos);
         Intent mapStepIntent = new Intent(RoadmapActivity.this, MapStepActivity.class);
         mapStepIntent.putExtra("buttonID", getResources().getResourceEntryName(view.getId()));
-        mapStepIntent.putExtra("mapPos", mapPos);
+        mapStepIntent.putExtra("mapPos", ""+mapPos);
         RoadmapActivity.this.startActivity(mapStepIntent);
     }
 
