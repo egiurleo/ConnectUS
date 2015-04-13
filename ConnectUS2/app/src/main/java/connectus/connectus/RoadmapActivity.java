@@ -11,6 +11,7 @@ import android.view.WindowManager;
  */
 public class RoadmapActivity extends ConnectUSActivity {
     public int mapPos;
+    private int id;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -19,6 +20,9 @@ public class RoadmapActivity extends ConnectUSActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   //Hides Notification Bar
 
         setContentView(R.layout.roadmap);
+
+        Intent intent = getIntent();
+        id = intent.getIntExtra("userId", 0);
 
         AsyncRoadmap roadmapBackground = new AsyncRoadmap(getApplicationContext(), RoadmapActivity.this, this);
         roadmapBackground.execute();
@@ -38,7 +42,8 @@ public class RoadmapActivity extends ConnectUSActivity {
     public void mapStepClick(View view){
         Intent mapStepIntent = new Intent(RoadmapActivity.this, MapStepActivity.class);
         mapStepIntent.putExtra("buttonID", getResources().getResourceEntryName(view.getId()));
-        mapStepIntent.putExtra("mapPos", ""+mapPos);
+        mapStepIntent.putExtra("mapPos", mapPos);
+        mapStepIntent.putExtra("userId", id);
         RoadmapActivity.this.startActivity(mapStepIntent);
     }
 

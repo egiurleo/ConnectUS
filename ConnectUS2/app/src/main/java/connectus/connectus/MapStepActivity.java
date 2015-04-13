@@ -2,6 +2,7 @@ package connectus.connectus;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ public class MapStepActivity extends ConnectUSActivity {
     private String buttonId;
     private int mapPos;
     private int myPos;
+    private int id;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,9 +27,10 @@ public class MapStepActivity extends ConnectUSActivity {
         Intent intent = getIntent();
         buttonId = intent.getStringExtra("buttonID");
 
-        mapPos = Integer.parseInt(intent.getStringExtra("mapPos"));
+        mapPos = intent.getIntExtra("mapPos", 0);
         int myPosId = getResources().getIdentifier(buttonId + "_number", "string", getApplicationContext().getPackageName());
         myPos = Integer.parseInt(getString(myPosId));
+        id = intent.getIntExtra("userId", 0);
 
         createView();
     }
@@ -52,5 +55,17 @@ public class MapStepActivity extends ConnectUSActivity {
         }
 
     }
+
+    public void onCheckboxClick(View view){
+        CheckBox checkbox = (CheckBox) findViewById(R.id.map_step_checkbox);
+
+        if(checkbox.isEnabled()){
+            AsyncMapStep asyncMapStep = new AsyncMapStep(id, myPos, true);
+        }else{
+            AsyncMapStep asyncMapStep = new AsyncMapStep(id, myPos, false);
+        }
+
+    }
+
 
 }
