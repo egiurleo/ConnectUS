@@ -40,7 +40,6 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
             while(scanner.hasNext()){
                 returnString = scanner.nextLine();
             }
-            System.out.println(returnString);
             return returnString.split("\\|");
 
 
@@ -54,8 +53,6 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
     @Override
     protected void onPostExecute(String[] result){
         int mapPos = Integer.parseInt(result[10]);
-
-        System.out.println("mapPos: " + mapPos);
 
         for(int i = 1; i <= mapPos; i++){
 

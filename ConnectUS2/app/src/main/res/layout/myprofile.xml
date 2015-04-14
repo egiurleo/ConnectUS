@@ -17,14 +17,6 @@
             android:text="Edit Profile"
             android:onClick="editProfile"/>
 
-        <ImageView
-            android:layout_height="150dp"
-            android:layout_width="150dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:id="@+id/profilepic"
-            android:src="@drawable/flower"/>
-
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"

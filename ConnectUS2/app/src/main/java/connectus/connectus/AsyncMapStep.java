@@ -22,8 +22,6 @@ public class AsyncMapStep extends AsyncTask<Void, Void, Void> {
         this.userId = userId;
         this.mapPos = mapPos;
         this.context = context;
-
-        System.out.println(checkboxEnabled + ", " + userId + ", " + mapPos);
     }
 
     @Override
@@ -43,7 +41,6 @@ public class AsyncMapStep extends AsyncTask<Void, Void, Void> {
         }
 
         try {
-            System.out.println("Http request!");
             HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/changeMapPos.php?userId=" + userId + "&mapPos=" + newMapPos);
             HttpResponse response = httpclient.execute(httprequest);
         }catch (IOException e){
