@@ -20,71 +20,12 @@
                 android:layout_marginTop="20dp">
             </Button>
 
-            <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:padding="10dp"
-                android:background="#DDDDDD"
-                android:onClick="friendsProfile">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:src="@drawable/flower2"/>
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:text="Brenda P."
-                    android:layout_gravity="center"/>
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/friends"
                 android:orientation="vertical">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:gravity="center_horizontal"
-                android:layout_weight="0.05">
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Name"
-                    android:id="@+id/button3"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:layout_margin="0dp" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Country"
-                    android:id="@+id/button5"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:layout_margin="0dp" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Language"
-                    android:id="@+id/button4"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:layout_margin="0dp" />
 
             </LinearLayout>
 
