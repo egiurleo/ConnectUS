@@ -2,9 +2,9 @@ package connectus.connectus;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
@@ -27,11 +27,13 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
     private Context context;
     private Activity activity;
     private OtherProfileActivity opa;
+    private String id;
 
-    public AsyncOtherProfile(Context context, Activity activity, OtherProfileActivity opa){
+    public AsyncOtherProfile(Context context, Activity activity, OtherProfileActivity opa, String id){
         this.context = context;
         this.activity = activity;
         this.opa = opa;
+        this.id = id;
     }
 
     boolean areFriends = false;
@@ -64,7 +66,6 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
                 //return the string to be cached
                 String x = convertStreamToString(inputStream2);
                 String[] splitProperties = x.split("\\|");
-
                 return splitProperties;
             }
 
@@ -84,27 +85,36 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
         String phone = result[3];
         String country = result[4];
         String languages = result[5];
+        int willingToHelp = Integer.parseInt(result[6]);
+        int lookingForHelp = Integer.parseInt(result[7]);
 
 
-            int resourceId = Resources.getSystem().getIdentifier("name", "id", context.getPackageName());
-            TextView txtView = (TextView) activity.findViewById(resourceId);
-            txtView.setText("Name: " + fullName);
+        TextView txtView = (TextView) activity.findViewById(R.id.name);
+        txtView.setText("Name: " + fullName);
 
-            resourceId = Resources.getSystem().getIdentifier("country", "id", context.getPackageName());
-            txtView = (TextView) activity.findViewById(resourceId);
-            txtView.setText("Country of Origin: " + country);
+        txtView = (TextView) activity.findViewById(R.id.country);
+        txtView.setText("Country of Origin: " + country);
 
-            resourceId = Resources.getSystem().getIdentifier("languages", "id", context.getPackageName());
-            txtView = (TextView) activity.findViewById(resourceId);
-            txtView.setText("Languages: " + languages);
+        txtView = (TextView) activity.findViewById(R.id.languages);
+        txtView.setText("Languages: " + languages);
 
-            resourceId = Resources.getSystem().getIdentifier("email", "id", context.getPackageName());
-            txtView = (TextView) activity.findViewById(resourceId);
-            txtView.setText("Email: " + email);
+        txtView = (TextView) activity.findViewById(R.id.email);
+        txtView.setText("Email: " + email);
 
-            resourceId = Resources.getSystem().getIdentifier("phone", "id", context.getPackageName());
-            txtView = (TextView) activity.findViewById(resourceId);
-            txtView.setText("Phone: " + phone);
+        txtView = (TextView) activity.findViewById(R.id.phone);
+        txtView.setText("Phone: " + phone);
+
+        if(willingToHelp == 1){
+            TextView textView = (TextView) activity.findViewById(R.id.willing_to_help);
+            textView.setVisibility(View.VISIBLE);
+        }
+
+        if(lookingForHelp == 1){
+            TextView textView = (TextView) activity.findViewById(R.id.looking_for_help);
+            textView.setVisibility(View.VISIBLE);
+        }
+
+
     }
 
     private String convertStreamToString(InputStream is){
