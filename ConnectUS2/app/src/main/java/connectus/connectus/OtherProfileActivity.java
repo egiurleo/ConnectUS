@@ -23,8 +23,8 @@ public class OtherProfileActivity extends ConnectUSActivity {
         setContentView(R.layout.otherprofile);
 
         Intent intent = getIntent();
-        String friendsName = intent.getStringExtra("friend");
-        //TextView text = (TextView)findViewById(R.id.friendsName);
-        //text.setText("Profile: " + friendsName);
+        String friendId = intent.getStringExtra("friend");
+        //TextView text = (TextView)findViewById(R.id.friendId);
+        //text.setText("Profile: " + friendId);
     }
 }
