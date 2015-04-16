@@ -72,8 +72,6 @@ public class AsyncFriendsList extends AsyncTask<Void, Void, Void> {
             friendsList = userInfo[8].split(" ");
             userId = userInfo[0];
 
-            Log.e("friends list", friendsList[0]);
-
 
         } catch (IOException e){
             Log.e("Error: ", "file not found");
@@ -83,7 +81,6 @@ public class AsyncFriendsList extends AsyncTask<Void, Void, Void> {
 
         names = new String[friendsList.length];
         for(int i=0; i<friendsList.length; i++){
-            Log.e("friend", friendsList[i]);
             try {
                 HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/getName.php?userId=" + friendsList[i]);
                 HttpResponse response = httpclient.execute(httprequest);
