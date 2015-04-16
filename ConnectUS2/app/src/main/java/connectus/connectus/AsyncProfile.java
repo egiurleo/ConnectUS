@@ -2,11 +2,9 @@ package connectus.connectus;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.FileInputStream;
@@ -20,12 +18,10 @@ public class AsyncProfile extends AsyncTask<Void, Void, String[]> {
 
     private Context context;
     private Activity activity;
-    private MyProfileActivity mpa;
 
-    public AsyncProfile(Context context, Activity activity, MyProfileActivity mpa){
+    public AsyncProfile(Context context, Activity activity){
         this.context = context;
         this.activity = activity;
-        this.mpa = mpa;
     }
 
     @Override
@@ -61,25 +57,37 @@ public class AsyncProfile extends AsyncTask<Void, Void, String[]> {
         String phone = result[3];
         String country = result[4];
         String languages = result[5];
+        int willingToHelp = Integer.parseInt(result[6]);
+        int lookingForHelp = Integer.parseInt(result[7]);
 
-        int resourceId = Resources.getSystem().getIdentifier("name", "id", context.getPackageName());
-        TextView txtView = (TextView) activity.findViewById(resourceId);
+        TextView txtView = (TextView) activity.findViewById(R.id.name);
         txtView.setText("Name: " + fullName);
 
-        resourceId = Resources.getSystem().getIdentifier("country", "id", context.getPackageName());
-        txtView = (TextView) activity.findViewById(resourceId);
+        txtView = (TextView) activity.findViewById(R.id.country);
         txtView.setText("Country of Origin: " + country);
 
-        resourceId = Resources.getSystem().getIdentifier("languages", "id", context.getPackageName());
-        txtView = (TextView) activity.findViewById(resourceId);
+        txtView = (TextView) activity.findViewById(R.id.languages);
         txtView.setText("Languages: " + languages);
 
-        resourceId = Resources.getSystem().getIdentifier("email", "id", context.getPackageName());
-        txtView = (TextView) activity.findViewById(resourceId);
+        txtView = (TextView) activity.findViewById(R.id.email);
         txtView.setText("Email: " + email);
 
-        resourceId = Resources.getSystem().getIdentifier("phone", "id", context.getPackageName());
-        txtView = (TextView) activity.findViewById(resourceId);
+        txtView = (TextView) activity.findViewById(R.id.phone);
         txtView.setText("Phone: " + phone);
+
+        txtView = (TextView) activity.findViewById(R.id.willing_to_help);
+        if(willingToHelp == 1){
+            txtView.setVisibility(View.VISIBLE);
+        }else{
+            txtView.setVisibility(View.INVISIBLE);
+        }
+
+        txtView = (TextView) activity.findViewById(R.id.looking_for_help);
+        if(lookingForHelp == 1){
+            txtView.setVisibility(View.VISIBLE);
+        }else{
+            txtView.setVisibility(View.INVISIBLE);
+        }
+
     }
 }

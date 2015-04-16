@@ -2,6 +2,7 @@ package connectus.connectus;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -14,6 +15,8 @@ public class MapStepActivity extends ConnectUSActivity {
     private String buttonId;
     private int mapPos;
     private int myPos;
+    private String id;
+    private boolean stuffChanged;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,9 +28,12 @@ public class MapStepActivity extends ConnectUSActivity {
         Intent intent = getIntent();
         buttonId = intent.getStringExtra("buttonID");
 
-        mapPos = Integer.parseInt(intent.getStringExtra("mapPos"));
+        mapPos = intent.getIntExtra("mapPos", 0);
         int myPosId = getResources().getIdentifier(buttonId + "_number", "string", getApplicationContext().getPackageName());
         myPos = Integer.parseInt(getString(myPosId));
+        id = intent.getStringExtra("userId");
+
+        stuffChanged = false;
 
         createView();
     }
@@ -45,12 +51,62 @@ public class MapStepActivity extends ConnectUSActivity {
 
         CheckBox checkbox = (CheckBox) findViewById(R.id.map_step_checkbox);
         //fix up checkbox
-        if(mapPos >= myPos){
+        if(mapPos > myPos) {
             checkbox.setChecked(true);
-        }else if(mapPos < myPos - 1){
             checkbox.setEnabled(false);
+        }else if(mapPos == myPos) {
+            checkbox.setChecked(true);
+        }else if(myPos == mapPos + 1){
+            if(myPos == 6 && mapPos == 5) {
+                checkbox.setEnabled(false);
+            }
+        }else if(mapPos < myPos - 1){
+            if(myPos == 6 && mapPos == 4) {
+                checkbox.setEnabled(true);
+            }else{
+                checkbox.setEnabled(false);
+            }
+
         }
 
     }
+
+    public void onCheckboxClick(View view){
+        CheckBox checkbox = (CheckBox) findViewById(R.id.map_step_checkbox);
+
+        AsyncMapStep asyncMapStep;
+
+        if(checkbox.isChecked()){
+            asyncMapStep = new AsyncMapStep(id, myPos, true, getApplicationContext());
+        }else{
+            asyncMapStep = new AsyncMapStep(id, myPos, false, getApplicationContext());
+        }
+
+        asyncMapStep.execute();
+
+        if(stuffChanged){
+            stuffChanged = false;
+        }else{
+            stuffChanged = true;
+        }
+
+    }
+
+    @Override
+    public void onBackPressed(){
+
+        if(stuffChanged) {
+            System.out.println("stuff changed!");
+
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("result", "true");
+            setResult(RESULT_OK, returnIntent);
+            finish();
+        }else{
+            super.onBackPressed();
+        }
+
+    }
+
 
 }

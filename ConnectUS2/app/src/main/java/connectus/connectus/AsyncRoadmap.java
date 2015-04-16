@@ -2,7 +2,6 @@ package connectus.connectus;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -41,7 +40,6 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
             while(scanner.hasNext()){
                 returnString = scanner.nextLine();
             }
-
             return returnString.split("\\|");
 
 
@@ -57,10 +55,27 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
         int mapPos = Integer.parseInt(result[10]);
 
         for(int i = 1; i <= mapPos; i++){
+
+            if(i==6){
+                String badID = "step5";
+                int resourceId = context.getResources().getIdentifier(badID, "id", context.getPackageName());
+                ImageView imgView = (ImageView) activity.findViewById(resourceId);
+                imgView.setVisibility(View.INVISIBLE);
+            }
+
             String id = "step" + i;
-            int resourceId = Resources.getSystem().getIdentifier(id, "id", context.getPackageName());
+            int resourceId = context.getResources().getIdentifier(id, "id", context.getPackageName());
             ImageView imgView = (ImageView) activity.findViewById(resourceId);
             imgView.setVisibility(View.VISIBLE);
+
+
+        }
+
+        for(int i = mapPos + 1; i <= 6; i++){
+            String id = "step" + i;
+            int resourceId = context.getResources().getIdentifier(id, "id", context.getPackageName());
+            ImageView imgView = (ImageView) activity.findViewById(resourceId);
+            imgView.setVisibility(View.INVISIBLE);
         }
 
         rma.mapPos = mapPos;
