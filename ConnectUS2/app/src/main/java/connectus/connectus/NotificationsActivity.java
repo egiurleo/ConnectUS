@@ -1,8 +1,9 @@
 package connectus.connectus;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
+
+import connectus.connectus.util.AsyncNotifications;
 
 
 public class NotificationsActivity extends ConnectUSActivity {
@@ -12,6 +13,9 @@ public class NotificationsActivity extends ConnectUSActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   //Hides Notification Bar
         setContentView(R.layout.activity_notifications);
+
+        AsyncNotifications asyncNotifications = new AsyncNotifications(getApplicationContext(), NotificationsActivity.this);
+        asyncNotifications.execute();
     }
 
 }
