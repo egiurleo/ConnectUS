@@ -19,7 +19,6 @@ public class MyProfileActivity extends ConnectUSActivity {
         asyncProfile.execute();
     }
 
-
     public void changeVisibility(View view){
         Intent changeVisibilityIntent = new Intent(MyProfileActivity.this, ChangeVisibilityActivity.class);
         MyProfileActivity.this.startActivity(changeVisibilityIntent);
