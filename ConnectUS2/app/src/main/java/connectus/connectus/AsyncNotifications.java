@@ -212,10 +212,8 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
                 notificationsContainer.addView(layout, params);
             }
         }else{
-            TextView textView = new TextView(activity);
-            textView.setText("You have no notifications!");
-            textView.setTextSize(20);
-            notificationsContainer.addView(textView);
+            TextView noNotifications = (TextView) activity.findViewById(R.id.have_no_notifications);
+            noNotifications.setVisibility(View.VISIBLE);
 
         }
 

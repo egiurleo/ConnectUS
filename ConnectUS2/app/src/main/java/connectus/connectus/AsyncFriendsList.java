@@ -77,26 +77,29 @@ public class AsyncFriendsList extends AsyncTask<Void, Void, Void> {
             Log.e("Error: ", "file not found");
         }
 
-        HttpClient httpclient = new DefaultHttpClient();
+        if(!friendsList[0].equals("")) {
 
-        names = new String[friendsList.length];
-        for(int i=0; i<friendsList.length; i++){
-            try {
-                HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/getName.php?userId=" + friendsList[i]);
-                HttpResponse response = httpclient.execute(httprequest);
+            HttpClient httpclient = new DefaultHttpClient();
 
-                if(response != null){
-                    InputStream inputStream2 = response.getEntity().getContent();
+            names = new String[friendsList.length];
+            for (int i = 0; i < friendsList.length; i++) {
+                try {
+                    HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/getName.php?userId=" + friendsList[i]);
+                    HttpResponse response = httpclient.execute(httprequest);
 
-                    //return the string to be cached
-                    String name = convertStreamToString(inputStream2);
-                    names[i] = name;
+                    if (response != null) {
+                        InputStream inputStream2 = response.getEntity().getContent();
+
+                        //return the string to be cached
+                        String name = convertStreamToString(inputStream2);
+                        names[i] = name;
+                    }
+                } catch (IOException e) {
+                    Log.e("Exception", "IOException");
                 }
-            }catch (IOException e){
-                Log.e("Exception", "IOException");
+
+
             }
-
-
         }
 
         return null;
@@ -106,29 +109,33 @@ public class AsyncFriendsList extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void result){
         LinearLayout friendsContainer = (LinearLayout) activity.findViewById(R.id.friends);
 
-        for(int i=0; i<friendsList.length; i++){
-            //create linear layout
-            LinearLayout layout = new LinearLayout(activity);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-            params.setMargins(10, 10, 10, 0);
-            layout.setPadding(10, 10, 10, 10);
-            layout.setBackgroundColor(Color.parseColor("#DDDDDD"));
-            layout.setOnClickListener(onClickFriend);
-            layout.setTag(friendsList[i]);
+        if(!friendsList[0].equals("")) {
+            for (int i = 0; i < friendsList.length; i++) {
+                //create linear layout
+                LinearLayout layout = new LinearLayout(activity);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+                params.setMargins(10, 10, 10, 0);
+                layout.setPadding(10, 10, 10, 10);
+                layout.setBackgroundColor(Color.parseColor("#DDDDDD"));
+                layout.setOnClickListener(onClickFriend);
+                layout.setTag(friendsList[i]);
 
-            //create textview
-            TextView textView = new TextView(activity);
-            textView.setText(names[i]);
-            LayoutParams textViewLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-            textView.setLayoutParams(textViewLayoutParams);
-            textView.setTextSize(20);
+                //create textview
+                TextView textView = new TextView(activity);
+                textView.setText(names[i]);
+                LayoutParams textViewLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+                textView.setLayoutParams(textViewLayoutParams);
+                textView.setTextSize(20);
 
-            layout.addView(textView);
-            friendsContainer.addView(layout, params);
+                layout.addView(textView);
+                friendsContainer.addView(layout, params);
 
+            }
+        }else{
+            TextView haveNoFriends = (TextView) activity.findViewById(R.id.have_no_friends);
+            haveNoFriends.setVisibility(View.VISIBLE);
         }
-
     }
 
     private String convertStreamToString(InputStream is){
