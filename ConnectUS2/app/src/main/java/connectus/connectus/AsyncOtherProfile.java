@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -55,7 +56,12 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
             }
 
             String[] splitList = returnString.split("\\|");
-            String[] friendsList = splitList[7].split(" ");
+            String[] friendsList = splitList[8].split(" ");
+
+            if(Arrays.asList(friendsList).contains(id))
+            {
+                areFriends = true;
+            }
 
             HttpGet httpGetUserInfo = new HttpGet("http://egiurleo.scripts.mit.edu/getUserInfo.php?userId=" + id);
             HttpResponse userInfoResponse = httpclient.execute(httpGetUserInfo);
@@ -68,7 +74,6 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
                 String[] splitProperties = x.split("\\|");
                 return splitProperties;
             }
-
 
         } catch (IOException e){
             Log.e("Error: ", "file not found");
@@ -87,22 +92,48 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
         String languages = result[5];
         int willingToHelp = Integer.parseInt(result[6]);
         int lookingForHelp = Integer.parseInt(result[7]);
+        String[] visibility = result[12].split(" ");
 
+        TextView txtView;
 
-        TextView txtView = (TextView) activity.findViewById(R.id.name);
-        txtView.setText("Name: " + fullName);
+        if(areFriends) {
+            txtView = (TextView) activity.findViewById(R.id.name);
+            txtView.setText("Name: " + fullName);
 
-        txtView = (TextView) activity.findViewById(R.id.country);
-        txtView.setText("Country of Origin: " + country);
+            txtView = (TextView) activity.findViewById(R.id.email);
+            txtView.setText("Email: " + email);
 
-        txtView = (TextView) activity.findViewById(R.id.languages);
-        txtView.setText("Languages: " + languages);
+            txtView = (TextView) activity.findViewById(R.id.phone);
+            txtView.setText("Phone: " + phone);
 
-        txtView = (TextView) activity.findViewById(R.id.email);
-        txtView.setText("Email: " + email);
+            txtView = (TextView) activity.findViewById(R.id.country);
+            txtView.setText("Country of Origin: " + country);
 
-        txtView = (TextView) activity.findViewById(R.id.phone);
-        txtView.setText("Phone: " + phone);
+            txtView = (TextView) activity.findViewById(R.id.languages);
+            txtView.setText("Languages: " + languages);
+        }
+        else {
+            if(visibility[0].equals("1")) {
+                txtView = (TextView) activity.findViewById(R.id.name);
+                txtView.setText("Name: " + fullName);
+            }
+            if(visibility[1].equals("1")) {
+                txtView = (TextView) activity.findViewById(R.id.email);
+                txtView.setText("Email: " + email);
+            }
+            if(visibility[2].equals("1")) {
+                txtView = (TextView) activity.findViewById(R.id.phone);
+                txtView.setText("Phone: " + phone);
+            }
+            if(visibility[3].equals("1")) {
+                txtView = (TextView) activity.findViewById(R.id.country);
+                txtView.setText("Country of Origin: " + country);
+            }
+            if(visibility[4].equals("1")) {
+                txtView = (TextView) activity.findViewById(R.id.languages);
+                txtView.setText("Languages: " + languages);
+            }
+        }
 
         if(willingToHelp == 1){
             TextView textView = (TextView) activity.findViewById(R.id.willing_to_help);
@@ -113,8 +144,6 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
             TextView textView = (TextView) activity.findViewById(R.id.looking_for_help);
             textView.setVisibility(View.VISIBLE);
         }
-
-
     }
 
     private String convertStreamToString(InputStream is){
