@@ -96,7 +96,8 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
                 AsyncLogin asyncLogin = new AsyncLogin(AsyncNotifications.this.context);
                 asyncLogin.execute(AsyncNotifications.this.userId);
 
-                Log.e("parent", v.getParent().toString());
+                RelativeLayout parent = (RelativeLayout) v.getParent().getParent();
+                parent.setVisibility(View.GONE);
             }
         };
 
@@ -121,6 +122,7 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
 
             String[] userInfo = returnString.split("\\|");
             notifications = userInfo[11].split(" ");
+            Log.e("notifications", notifications[0]);
             friends = userInfo[8].split(" ");
             userId = userInfo[0];
 
@@ -129,7 +131,7 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
             Log.e("Error: ", "file not found");
         }
 
-        if(notifications.length != 0) {
+        if(!notifications[0].equals("")) {
 
             HttpClient httpclient = new DefaultHttpClient();
 
@@ -162,7 +164,7 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
 
         LinearLayout notificationsContainer = (LinearLayout) activity.findViewById(R.id.notifications);
 
-        if(notifications.length != 0){
+        if(!notifications[0].equals("")){
 
             for(int i=0; i<notifications.length; i++) {
                 //create linear layout
@@ -174,7 +176,6 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
                 layout.setBackgroundColor(Color.parseColor("#DDDDDD"));
                 layout.setOnClickListener(onClickFriend);
                 layout.setTag(notifications[i]);
-                Log.e("Tag", notifications[i]);
 
                 LinearLayout buttonHolder = new LinearLayout(activity);
                 RelativeLayout.LayoutParams llParams = new RelativeLayout.LayoutParams
@@ -213,6 +214,7 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
         }else{
             TextView textView = new TextView(activity);
             textView.setText("You have no notifications!");
+            textView.setTextSize(20);
             notificationsContainer.addView(textView);
 
         }

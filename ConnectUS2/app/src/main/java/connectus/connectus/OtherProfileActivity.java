@@ -2,6 +2,8 @@ package connectus.connectus;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 /**
  * Created by egiurleo on 3/31/15.
@@ -11,7 +13,6 @@ public class OtherProfileActivity extends ConnectUSActivity {
     private String id;
 
     @Override
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -24,7 +25,11 @@ public class OtherProfileActivity extends ConnectUSActivity {
 
         AsyncOtherProfile asyncOtherProfile = new AsyncOtherProfile(getApplicationContext(), OtherProfileActivity.this, this, id);
         asyncOtherProfile.execute();
-        //TextView text = (TextView)findViewById(R.id.friendId);
-        //text.setText("Profile: " + friendId);
+    }
+
+    public void sendFriendRequest(View view){
+        Log.e("in method", "send friend request");
+        AsyncSendFriendRequest asyncSendFriendRequest = new AsyncSendFriendRequest(id, getApplicationContext(), OtherProfileActivity.this);
+        asyncSendFriendRequest.execute();
     }
 }

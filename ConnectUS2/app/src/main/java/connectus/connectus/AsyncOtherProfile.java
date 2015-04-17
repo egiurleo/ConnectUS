@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
@@ -94,7 +95,16 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
         String languages = result[5];
         int willingToHelp = Integer.parseInt(result[6]);
         int lookingForHelp = Integer.parseInt(result[7]);
+        String[] notifications = result[11].split(" ");
         String[] visibility = result[12].split(" ");
+
+        if(contains(notifications, id)){
+            Button friendRequestButton = (Button) activity.findViewById(R.id.send_friend_request);
+            friendRequestButton.setVisibility(View.GONE);
+        }else{
+            TextView friendRequestSent = (TextView) activity.findViewById(R.id.friend_request_sent);
+            friendRequestSent.setVisibility(View.GONE);
+        }
 
         TextView txtView;
 
@@ -165,5 +175,17 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
             return "Problem with string";
         }
         return total.toString();
+    }
+
+    private boolean contains(String[] array, String string){
+        boolean returnVal = false;
+
+        for(String arrayString : array){
+            if(arrayString.equals(string)){
+                returnVal = true;
+            }
+        }
+
+        return returnVal;
     }
 }
