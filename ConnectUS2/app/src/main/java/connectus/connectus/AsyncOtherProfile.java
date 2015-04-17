@@ -111,6 +111,8 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
 
             txtView = (TextView) activity.findViewById(R.id.languages);
             txtView.setText("Languages: " + languages);
+
+            opa.findViewById(R.id.button).setVisibility(1);
         }
         else {
             if(visibility[0].equals("1")) {
