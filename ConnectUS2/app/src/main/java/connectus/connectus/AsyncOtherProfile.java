@@ -66,11 +66,13 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
             HttpGet httpGetUserInfo = new HttpGet("http://egiurleo.scripts.mit.edu/getUserInfo.php?userId=" + id);
             HttpResponse userInfoResponse = httpclient.execute(httpGetUserInfo);
 
+
             if(userInfoResponse != null){
                 InputStream inputStream2 = userInfoResponse.getEntity().getContent();
 
                 //return the string to be cached
                 String x = convertStreamToString(inputStream2);
+                Log.e("response", x);
                 String[] splitProperties = x.split("\\|");
                 return splitProperties;
             }
@@ -112,7 +114,7 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
             txtView = (TextView) activity.findViewById(R.id.languages);
             txtView.setText("Languages: " + languages);
 
-            opa.findViewById(R.id.button).setVisibility(1);
+            activity.findViewById(R.id.send_friend_request).setVisibility(View.INVISIBLE);
         }
         else {
             if(visibility[0].equals("1")) {
@@ -131,7 +133,10 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
                 txtView = (TextView) activity.findViewById(R.id.country);
                 txtView.setText("Country of Origin: " + country);
             }
+
+            Log.e("visibility", visibility[4]);
             if(visibility[4].equals("1")) {
+
                 txtView = (TextView) activity.findViewById(R.id.languages);
                 txtView.setText("Languages: " + languages);
             }

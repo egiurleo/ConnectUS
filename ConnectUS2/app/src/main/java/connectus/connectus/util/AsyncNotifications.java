@@ -8,10 +8,11 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -131,8 +132,8 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
 
         for(int i=0; i<notifications.length; i++){
             //create linear layout
-            LinearLayout layout = new LinearLayout(activity);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+            RelativeLayout layout = new RelativeLayout(activity);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                     new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             params.setMargins(10, 10, 10, 0);
             layout.setPadding(10, 10, 10, 10);
@@ -140,30 +141,33 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
             layout.setOnClickListener(onClickFriend);
             layout.setTag(notifications[i]);
 
+            LinearLayout buttonHolder = new LinearLayout(activity);
+            RelativeLayout.LayoutParams llParams = new RelativeLayout.LayoutParams
+                    (new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            llParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
             //create textview
             TextView textView = new TextView(activity);
             textView.setText(names[i]);
-            ViewGroup.LayoutParams textViewLayoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            ViewGroup.LayoutParams textViewLayoutParams = new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             textView.setLayoutParams(textViewLayoutParams);
             textView.setTextSize(20);
 
-            //create check
-            ImageView imageView = new ImageView(activity);
-            LayoutParams layoutParams = new LayoutParams(30, 30);
-            imageView.setLayoutParams(layoutParams);
-            imageView.setImageResource(R.drawable.check2);
-            imageView.setOnClickListener(acceptFriend);
+            Button accept = new Button(activity);
+            LayoutParams acceptParams = new LayoutParams(30, 30);
+            accept.setLayoutParams(acceptParams);
+            accept.setBackgroundResource(R.drawable.check2);
 
-            //create x
-            ImageView imageView2 = new ImageView(activity);
-            LayoutParams layoutParams2 = new LayoutParams(30, 30);
-            imageView2.setLayoutParams(layoutParams2);
-            imageView2.setImageResource(R.drawable.x);
-            imageView2.setOnClickListener(rejectFriend);
+            Button reject = new Button(activity);
+            LayoutParams rejectParams = new LayoutParams(30, 30);
+            reject.setLayoutParams(rejectParams);
+            reject.setBackgroundResource(R.drawable.x);
+
+            buttonHolder.addView(accept);
+            buttonHolder.addView(reject);
 
             layout.addView(textView);
-            layout.addView(imageView);
-            layout.addView(imageView2);
+            layout.addView(buttonHolder, llParams);
             notificationsContainer.addView(layout, params);
         }
 

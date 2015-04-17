@@ -64,6 +64,7 @@
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="20dp"
         android:text="Send Friend Request"
-        android:onClick="changeVisibility" />
+        android:onClick="changeVisibility"
+        android:id="@+id/send_friend_request"/>
 
 </LinearLayout>
