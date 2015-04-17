@@ -16,27 +16,27 @@
 
     <!---Stuff for map-->
     <string name="getting_started_title">Getting Started</string>
-    <string name="getting_started_text">Before you can even become a citizen...</string>
+    <string name="getting_started_text">Before you can apply for citizenship, you must meet a number of requirements. Check that you fulfill each of the following before starting your application:\nYou must be at least 18 years of age\nYou must be a lawful permanent resident (possess a visa, green card, etc.)\nYou must have resided in the U.S. continuously for at least 5 years, or at least 3 years if you have a spouse who is an American citizen.\nYou must have documentation proving that you have lived in your current place of residence for the three months before filing an application.</string>
     <string name="getting_started_number">1</string>
 
     <string name="n400_title">Submitting N-400</string>
-    <string name="n400_text">You have to submit this form...</string>
+    <string name="n400_text">This is your initial application form. On this form you will certify that you meet all of the minimum requirements to apply. You will also provide important information such as your previous countries of residence, marital status, number of children, and disabilities. Depending on your answers, there may be additional forms or questions that you will need to answer. The purpose of this form is to collect all of the core information that is needed, before your application is processed.</string>
     <string name="n400_number">2</string>
 
     <string name="biometrics_title">Biometrics</string>
-    <string name="biometrics_text">The biometrics appointment will be made for you by the government once you have submitted your N-400 form.</string>
+    <string name="biometrics_text">Once you have submitted your N-400 form and it has been processed, you will be contacted by a government worker to schedule your biometrics appointment. During this appointment you will be attended by a physician who will officially note your height, eye/hair color, as well as taking samples of your fingerprints. The entire appointment should only take about 20 minutes. After the appointment, your fingerprints will be sent to the FBI, who will catalog them and use them to confirm that you have not committed any crimes or immigration violations, such as attempting to cross the border illegally.</string>
     <string name="biometrics_number">3</string>
 
     <string name="interview_title">Naturalization Interview</string>
-    <string name="interview_text">You are going to get an appointment for a naturalization interview... </string>
+    <string name="interview_text">After your N-400 is processed and your biometrics have been recorded, you will receive a postcard detailing when and where your naturalization interview will take place. The interviewer will ask questions about your background, your place and length of residence, your character, and your willingness to take an Oath of Allegiance to the United States. You will be under oath during your interview, so it is important to always tell the truth. If the USCIS finds that you lied during your interview, they will most likely deny your application.</string>
     <string name="interview_number">4</string>
 
     <string name="accepted_title">Accepted</string>
-    <string name="accepted_text">If your application is accepted...</string>
+    <string name="accepted_text">If your application is accepted, you will be invited to attend an Oath Swearing Ceremony. At this ceremony you will take the Oath of Allegiance to the United States, usually along with several other people who have also had their applications approved. Upon completing the oath, you will be an official citizen of the United States. Congratulations!</string>
     <string name="accepted_number">5</string>
 
     <string name="denied_title">Denied</string>
-    <string name="denied_text">If your application is denied...</string>
+    <string name="denied_text">If your application is denied, you have the ability to appeal the decision. If you have an attourney, they will likely be able to help and offer you advice on the best way to make your appeal. If your appeal fails, you may also choose to start your application process over from the beginning (note that if this is the case, you must report that you previously applied for and were denied citizenship.</string>
     <string name="denied_number">6</string>
 
 
