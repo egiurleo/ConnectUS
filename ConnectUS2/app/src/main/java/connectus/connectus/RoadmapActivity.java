@@ -62,5 +62,10 @@ public class RoadmapActivity extends ConnectUSActivity {
         }
     }
 
+    @Override
+    public void onBackPressed(){
+
+    }
+
 
 }
