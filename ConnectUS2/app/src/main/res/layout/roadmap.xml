@@ -33,6 +33,14 @@
                 android:id="@+id/step1"
                 android:visibility="invisible"/>
 
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="bottom"
+                android:src="@drawable/dot"
+                android:id="@+id/dot1"
+                android:visibility="gone"/>
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -57,6 +65,14 @@
                 android:src="@drawable/check"
                 android:id="@+id/step2"
                 android:visibility="invisible"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="bottom"
+                android:src="@drawable/dot"
+                android:id="@+id/dot2"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 
@@ -84,6 +100,13 @@
                 android:id="@+id/step3"
                 android:visibility="invisible"/>
 
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="bottom"
+                android:src="@drawable/dot"
+                android:id="@+id/dot3"
+                android:visibility="gone"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -109,6 +132,14 @@
                 android:src="@drawable/check"
                 android:id="@+id/step4"
                 android:visibility="invisible"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="bottom"
+                android:src="@drawable/dot"
+                android:id="@+id/dot4"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 
@@ -142,6 +173,14 @@
                     android:id="@+id/step5"
                     android:visibility="invisible"/>
 
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="bottom"
+                    android:src="@drawable/dot"
+                    android:id="@+id/dot5"
+                    android:visibility="gone"/>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -167,6 +206,14 @@
                     android:src="@drawable/check"
                     android:id="@+id/step6"
                     android:visibility="invisible"/>
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="bottom"
+                    android:src="@drawable/dot"
+                    android:id="@+id/dot6"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 

@@ -7,8 +7,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /**
@@ -19,6 +27,8 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
     private Context context;
     private Activity activity;
     private RoadmapActivity rma;
+    private String[] mapPosArray;
+    private String[] friendsList;
 
     public AsyncRoadmap(Context context, Activity activity, RoadmapActivity rma){
         this.context = context;
@@ -30,6 +40,7 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
     protected String[] doInBackground(Void... args){
 
         String returnString = "";
+        String[] userInfo = null;
 
         try {
 
@@ -40,14 +51,36 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
             while(scanner.hasNext()){
                 returnString = scanner.nextLine();
             }
-            return returnString.split("\\|");
 
+            userInfo = returnString.split("\\|");
+            friendsList = userInfo[8].split(" ");
 
         } catch (IOException e){
             Log.e("Error: ", "file not found");
         }
 
-        return null;
+        HttpClient httpclient = new DefaultHttpClient();
+
+        mapPosArray = new String[friendsList.length];
+        for (int i = 0; i < friendsList.length; i++) {
+            try {
+                HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/getMapPos.php?userId=" + friendsList[i]);
+                HttpResponse response = httpclient.execute(httprequest);
+
+                if (response != null) {
+                    InputStream inputStream2 = response.getEntity().getContent();
+
+                    //return the string to be cached
+                    String pos = convertStreamToString(inputStream2);
+                    mapPosArray[i] = pos;
+                }
+            } catch (IOException e) {
+                Log.e("Exception", "IOException");
+            }
+
+        }
+
+         return userInfo;
     }
 
     @Override
@@ -79,6 +112,29 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
         }
 
         rma.mapPos = mapPos;
+
+        for(int i=0; i<friendsList.length; i++){
+            String pos = mapPosArray[i];
+            String id = "dot" + i;
+            int resourceId = context.getResources().getIdentifier(id, "id", context.getPackageName());
+            ImageView imgView = (ImageView) activity.findViewById(resourceId);
+            imgView.setVisibility(View.VISIBLE);
+
+        }
+    }
+
+    private String convertStreamToString(InputStream is){
+        String line = "";
+        StringBuilder total = new StringBuilder();
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+        try {
+            while ((line = rd.readLine()) != null) {
+                total.append(line);
+            }
+        } catch (Exception e) {
+            return "Problem with string";
+        }
+        return total.toString();
     }
 
 
