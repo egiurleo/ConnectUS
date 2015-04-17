@@ -3,8 +3,6 @@ package connectus.connectus;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import connectus.connectus.util.AsyncNotifications;
-
 
 public class NotificationsActivity extends ConnectUSActivity {
 
@@ -16,6 +14,8 @@ public class NotificationsActivity extends ConnectUSActivity {
 
         AsyncNotifications asyncNotifications = new AsyncNotifications(getApplicationContext(), NotificationsActivity.this);
         asyncNotifications.execute();
+
     }
+
 
 }
