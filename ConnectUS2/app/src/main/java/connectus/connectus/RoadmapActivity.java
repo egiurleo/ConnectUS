@@ -2,8 +2,10 @@ package connectus.connectus;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.PopupMenu;
 
 
 /**
@@ -60,6 +62,23 @@ public class RoadmapActivity extends ConnectUSActivity {
                 }
             }
         }
+    }
+
+    public void popupMenu(View view){
+        String[] list = ((String)view.getTag()).split(" ");
+
+        //create popup
+        PopupMenu popup = new PopupMenu(this, view);
+
+        //create menu
+        Menu menu = popup.getMenu();
+        for(String listItem : list){
+            if(!listItem.equals("")) {
+                menu.add(listItem);
+            }
+        }
+
+        popup.show();
     }
 
     @Override

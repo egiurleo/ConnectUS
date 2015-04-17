@@ -112,14 +112,21 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
         }
 
         rma.mapPos = mapPos;
+        if(!friendsList[0].equals("")) {
+            for (int i = 0; i < friendsList.length; i++) {
+                String pos = mapPosArray[i];
+                String id = "dot" + pos;
+                int resourceId = context.getResources().getIdentifier(id, "id", context.getPackageName());
+                ImageView imgView = (ImageView) activity.findViewById(resourceId);
 
-        for(int i=0; i<friendsList.length; i++){
-            String pos = mapPosArray[i];
-            String id = "dot" + i;
-            int resourceId = context.getResources().getIdentifier(id, "id", context.getPackageName());
-            ImageView imgView = (ImageView) activity.findViewById(resourceId);
-            imgView.setVisibility(View.VISIBLE);
+                if(imgView.getTag() == null){
+                    imgView.setTag("");
+                }
 
+                imgView.setTag(imgView.getTag() + " " + friendsList[i]);
+                imgView.setVisibility(View.VISIBLE);
+
+            }
         }
     }
 

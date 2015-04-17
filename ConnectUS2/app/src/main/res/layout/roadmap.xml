@@ -39,6 +39,7 @@
                 android:layout_gravity="bottom"
                 android:src="@drawable/dot"
                 android:id="@+id/dot1"
+                android:onClick="popupMenu"
                 android:visibility="gone"/>
 
         </RelativeLayout>
@@ -72,6 +73,7 @@
                 android:layout_gravity="bottom"
                 android:src="@drawable/dot"
                 android:id="@+id/dot2"
+                android:onClick="popupMenu"
                 android:visibility="gone"/>
 
         </RelativeLayout>
@@ -106,6 +108,7 @@
                 android:layout_gravity="bottom"
                 android:src="@drawable/dot"
                 android:id="@+id/dot3"
+                android:onClick="popupMenu"
                 android:visibility="gone"/>
         </RelativeLayout>
 
@@ -139,6 +142,7 @@
                 android:layout_gravity="bottom"
                 android:src="@drawable/dot"
                 android:id="@+id/dot4"
+                android:onClick="popupMenu"
                 android:visibility="gone"/>
 
         </RelativeLayout>
@@ -179,6 +183,7 @@
                     android:layout_gravity="bottom"
                     android:src="@drawable/dot"
                     android:id="@+id/dot5"
+                    android:onClick="popupMenu"
                     android:visibility="gone"/>
 
             </RelativeLayout>
@@ -213,6 +218,7 @@
                     android:layout_gravity="bottom"
                     android:src="@drawable/dot"
                     android:id="@+id/dot6"
+                    android:onClick="popupMenu"
                     android:visibility="gone"/>
 
             </RelativeLayout>
