@@ -2,6 +2,8 @@ package connectus.connectus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,27 +32,49 @@ public class EditProfileActivity extends ConnectUSActivity {
     }
 
     public void doneEditing(View view){
-        AsyncDoneEditing asyncDoneEditing = new AsyncDoneEditing(EditProfileActivity.this, userId, getApplicationContext());
-        asyncDoneEditing.execute();
 
-        AsyncLogin asyncLogin = new AsyncLogin(getApplicationContext());
-        asyncLogin.execute(userId);
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        Intent returnIntent = new Intent();
-        setResult(RESULT_OK, returnIntent);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        if(isConnected) {
+            AsyncDoneEditing asyncDoneEditing = new AsyncDoneEditing(EditProfileActivity.this, userId, getApplicationContext());
+            asyncDoneEditing.execute();
+
+            AsyncLogin asyncLogin = new AsyncLogin(getApplicationContext());
+            asyncLogin.execute(userId);
+
+            Intent returnIntent = new Intent();
+            setResult(RESULT_OK, returnIntent);
+        }
+
         this.finish();
     }
 
     @Override
     public void onBackPressed(){
-        AsyncDoneEditing asyncDoneEditing = new AsyncDoneEditing(EditProfileActivity.this, userId, getApplicationContext());
-        asyncDoneEditing.execute();
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        AsyncLogin asyncLogin = new AsyncLogin(getApplicationContext());
-        asyncLogin.execute(userId);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
 
-        Intent returnIntent = new Intent();
-        setResult(RESULT_OK, returnIntent);
+        if(isConnected){
+            System.out.println("connected in edit profile activity");
+            AsyncDoneEditing asyncDoneEditing = new AsyncDoneEditing(EditProfileActivity.this, userId, getApplicationContext());
+            asyncDoneEditing.execute();
+
+            AsyncLogin asyncLogin = new AsyncLogin(getApplicationContext());
+            asyncLogin.execute(userId);
+
+            Intent returnIntent = new Intent();
+            setResult(RESULT_OK, returnIntent);
+
+        }
 
         super.onBackPressed();
     }

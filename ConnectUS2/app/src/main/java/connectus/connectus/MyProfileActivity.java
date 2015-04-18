@@ -30,9 +30,10 @@ public class MyProfileActivity extends ConnectUSActivity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println("getting result");
+        System.out.println("getting result in myprofile activity");
         if (requestCode == 2) {
             if(resultCode == RESULT_OK) {
+                System.out.println("got valid result");
                 AsyncProfile asyncProfile = new AsyncProfile(getApplicationContext(), MyProfileActivity.this);
                 asyncProfile.execute();
             }

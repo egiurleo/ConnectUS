@@ -77,9 +77,9 @@ public class MapStepActivity extends ConnectUSActivity {
         AsyncMapStep asyncMapStep;
 
         if(checkbox.isChecked()){
-            asyncMapStep = new AsyncMapStep(id, myPos, true, getApplicationContext());
+            asyncMapStep = new AsyncMapStep(id, myPos, true, getApplicationContext(), MapStepActivity.this);
         }else{
-            asyncMapStep = new AsyncMapStep(id, myPos, false, getApplicationContext());
+            asyncMapStep = new AsyncMapStep(id, myPos, false, getApplicationContext(), MapStepActivity.this);
         }
 
         asyncMapStep.execute();

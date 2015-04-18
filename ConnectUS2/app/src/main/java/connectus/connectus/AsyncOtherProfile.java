@@ -2,6 +2,8 @@ package connectus.connectus;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -42,44 +44,54 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
 
     @Override
     protected String[] doInBackground(Void... args){
-        HttpClient httpclient = new DefaultHttpClient();
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        String returnString = "";
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
 
-        try {
+        if(isConnected) {
+            HttpClient httpclient = new DefaultHttpClient();
 
-            //get the stored file
-            FileInputStream fileinput = context.openFileInput("connectus_user_info");
-            Scanner scanner = new Scanner(fileinput);
+            String returnString = "";
 
-            while(scanner.hasNext()){
-                returnString = scanner.nextLine();
+            try {
+
+                //get the stored file
+                FileInputStream fileinput = context.openFileInput("connectus_user_info");
+                Scanner scanner = new Scanner(fileinput);
+
+                while (scanner.hasNext()) {
+                    returnString = scanner.nextLine();
+                }
+
+                String[] splitList = returnString.split("\\|");
+                String[] friendsList = splitList[8].split(" ");
+
+                if (Arrays.asList(friendsList).contains(id)) {
+                    areFriends = true;
+                }
+
+                HttpGet httpGetUserInfo = new HttpGet("http://egiurleo.scripts.mit.edu/getUserInfo.php?userId=" + id);
+                HttpResponse userInfoResponse = httpclient.execute(httpGetUserInfo);
+
+
+                if (userInfoResponse != null) {
+                    InputStream inputStream2 = userInfoResponse.getEntity().getContent();
+
+                    //return the string to be cached
+                    String x = convertStreamToString(inputStream2);
+                    Log.e("response", x);
+                    String[] splitProperties = x.split("\\|");
+                    return splitProperties;
+                }
+
+            } catch (IOException e) {
+                Log.e("Error: ", "file not found");
             }
-
-            String[] splitList = returnString.split("\\|");
-            String[] friendsList = splitList[8].split(" ");
-
-            if(Arrays.asList(friendsList).contains(id))
-            {
-                areFriends = true;
-            }
-
-            HttpGet httpGetUserInfo = new HttpGet("http://egiurleo.scripts.mit.edu/getUserInfo.php?userId=" + id);
-            HttpResponse userInfoResponse = httpclient.execute(httpGetUserInfo);
-
-
-            if(userInfoResponse != null){
-                InputStream inputStream2 = userInfoResponse.getEntity().getContent();
-
-                //return the string to be cached
-                String x = convertStreamToString(inputStream2);
-                Log.e("response", x);
-                String[] splitProperties = x.split("\\|");
-                return splitProperties;
-            }
-
-        } catch (IOException e){
-            Log.e("Error: ", "file not found");
+        }else{
+            activity.findViewById(R.id.network_warning).setVisibility(View.VISIBLE);
         }
 
         return null;
@@ -87,79 +99,80 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
 
     @Override
     protected void onPostExecute(String[] result){
-        String userId = result[0];
-        String fullName = result[1];
-        String email = result[2];
-        String phone = result[3];
-        String country = result[4];
-        String languages = result[5];
-        int willingToHelp = Integer.parseInt(result[6]);
-        int lookingForHelp = Integer.parseInt(result[7]);
-        String[] notifications = result[11].split(" ");
-        String[] visibility = result[12].split(" ");
+        if(result != null) {
+            String userId = result[0];
+            String fullName = result[1];
+            String email = result[2];
+            String phone = result[3];
+            String country = result[4];
+            String languages = result[5];
+            int willingToHelp = Integer.parseInt(result[6]);
+            int lookingForHelp = Integer.parseInt(result[7]);
+            String[] notifications = result[11].split(" ");
+            String[] visibility = result[12].split(" ");
 
-        if(contains(notifications, id)){
-            Button friendRequestButton = (Button) activity.findViewById(R.id.send_friend_request);
-            friendRequestButton.setVisibility(View.GONE);
-        }else{
-            TextView friendRequestSent = (TextView) activity.findViewById(R.id.friend_request_sent);
-            friendRequestSent.setVisibility(View.GONE);
-        }
+            if (contains(notifications, id)) {
+                Button friendRequestButton = (Button) activity.findViewById(R.id.send_friend_request);
+                friendRequestButton.setVisibility(View.GONE);
+            } else {
+                TextView friendRequestSent = (TextView) activity.findViewById(R.id.friend_request_sent);
+                friendRequestSent.setVisibility(View.GONE);
+            }
 
-        TextView txtView;
+            TextView txtView;
 
-        if(areFriends) {
-            txtView = (TextView) activity.findViewById(R.id.name);
-            txtView.setText("Name: " + fullName);
-
-            txtView = (TextView) activity.findViewById(R.id.email);
-            txtView.setText("Email: " + email);
-
-            txtView = (TextView) activity.findViewById(R.id.phone);
-            txtView.setText("Phone: " + phone);
-
-            txtView = (TextView) activity.findViewById(R.id.country);
-            txtView.setText("Country of Origin: " + country);
-
-            txtView = (TextView) activity.findViewById(R.id.languages);
-            txtView.setText("Languages: " + languages);
-
-            activity.findViewById(R.id.send_friend_request).setVisibility(View.INVISIBLE);
-        }
-        else {
-            if(visibility[0].equals("1")) {
+            if (areFriends) {
                 txtView = (TextView) activity.findViewById(R.id.name);
                 txtView.setText("Name: " + fullName);
-            }
-            if(visibility[1].equals("1")) {
+
                 txtView = (TextView) activity.findViewById(R.id.email);
                 txtView.setText("Email: " + email);
-            }
-            if(visibility[2].equals("1")) {
+
                 txtView = (TextView) activity.findViewById(R.id.phone);
                 txtView.setText("Phone: " + phone);
-            }
-            if(visibility[3].equals("1")) {
+
                 txtView = (TextView) activity.findViewById(R.id.country);
                 txtView.setText("Country of Origin: " + country);
-            }
-
-            Log.e("visibility", visibility[4]);
-            if(visibility[4].equals("1")) {
 
                 txtView = (TextView) activity.findViewById(R.id.languages);
                 txtView.setText("Languages: " + languages);
+
+                activity.findViewById(R.id.send_friend_request).setVisibility(View.INVISIBLE);
+            } else {
+                if (visibility[0].equals("1")) {
+                    txtView = (TextView) activity.findViewById(R.id.name);
+                    txtView.setText("Name: " + fullName);
+                }
+                if (visibility[1].equals("1")) {
+                    txtView = (TextView) activity.findViewById(R.id.email);
+                    txtView.setText("Email: " + email);
+                }
+                if (visibility[2].equals("1")) {
+                    txtView = (TextView) activity.findViewById(R.id.phone);
+                    txtView.setText("Phone: " + phone);
+                }
+                if (visibility[3].equals("1")) {
+                    txtView = (TextView) activity.findViewById(R.id.country);
+                    txtView.setText("Country of Origin: " + country);
+                }
+
+                Log.e("visibility", visibility[4]);
+                if (visibility[4].equals("1")) {
+
+                    txtView = (TextView) activity.findViewById(R.id.languages);
+                    txtView.setText("Languages: " + languages);
+                }
             }
-        }
 
-        if(willingToHelp == 1){
-            TextView textView = (TextView) activity.findViewById(R.id.willing_to_help);
-            textView.setVisibility(View.VISIBLE);
-        }
+            if (willingToHelp == 1) {
+                TextView textView = (TextView) activity.findViewById(R.id.willing_to_help);
+                textView.setVisibility(View.VISIBLE);
+            }
 
-        if(lookingForHelp == 1){
-            TextView textView = (TextView) activity.findViewById(R.id.looking_for_help);
-            textView.setVisibility(View.VISIBLE);
+            if (lookingForHelp == 1) {
+                TextView textView = (TextView) activity.findViewById(R.id.looking_for_help);
+                textView.setVisibility(View.VISIBLE);
+            }
         }
     }
 

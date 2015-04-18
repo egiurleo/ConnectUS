@@ -1,11 +1,19 @@
 package connectus.connectus;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -14,6 +22,7 @@ import android.widget.PopupMenu;
 public class RoadmapActivity extends ConnectUSActivity {
     public int mapPos;
     private String id;
+    private OnMenuItemClickListener userProfile;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,21 +35,41 @@ public class RoadmapActivity extends ConnectUSActivity {
         Intent intent = getIntent();
         id = intent.getStringExtra("userId");
 
+        //have the file cache
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+        TimerTask doAsynchronousTask = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+
+                        ConnectivityManager cm =
+                                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                        boolean isConnected = activeNetwork != null &&
+                                activeNetwork.isConnectedOrConnecting();
+
+                        if (isConnected) {
+                            AsyncLogin asyncLogin = new AsyncLogin(getApplicationContext());
+                            asyncLogin.execute(id);
+
+                        } else {
+
+                        }
+                    }
+                });
+            }
+        };
+
+        timer.schedule(doAsynchronousTask, 0, 120000); //execute in every 2 ms
+
         System.out.println("doing asyncroadmap again");
 
         AsyncRoadmap roadmapBackground = new AsyncRoadmap(getApplicationContext(), RoadmapActivity.this, this);
         roadmapBackground.execute();
 
-    }
-
-    public void myProfileClick(View view){
-        Intent myProfileIntent = new Intent(RoadmapActivity.this, MyProfileActivity.class);
-        RoadmapActivity.this.startActivity(myProfileIntent);
-    }
-
-    public void friendProfileClick(View view){
-        Intent otherProfileIntent = new Intent(RoadmapActivity.this, OtherProfileActivity.class);
-        RoadmapActivity.this.startActivity(otherProfileIntent);
     }
 
     public void mapStepClick(View view){
@@ -70,6 +99,7 @@ public class RoadmapActivity extends ConnectUSActivity {
         //create popup
         PopupMenu popup = new PopupMenu(this, view);
 
+
         //create menu
         Menu menu = popup.getMenu();
         for(String listItem : list){
@@ -84,7 +114,15 @@ public class RoadmapActivity extends ConnectUSActivity {
 
     @Override
     public void onBackPressed(){
+        //LEAVE THIS HERE
+    }
 
+    @Override
+    public void onRestart(){
+        System.out.println("restarting!");
+        super.onRestart();
+        AsyncRoadmap roadmapBackground = new AsyncRoadmap(getApplicationContext(), RoadmapActivity.this, this);
+        roadmapBackground.execute();
     }
 
 

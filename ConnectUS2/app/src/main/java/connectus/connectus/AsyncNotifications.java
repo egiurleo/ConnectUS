@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -40,10 +42,12 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
     private View.OnClickListener acceptFriend;
     private View.OnClickListener rejectFriend;
     private String[] names;
+    private boolean connected;
 
     public AsyncNotifications(Context context, Activity activity){
         this.context = context;
         this.activity = activity;
+        connected = true;
 
         onClickFriend = new View.OnClickListener() {
             @Override
@@ -108,53 +112,67 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... args){
 
-        String returnString = "";
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        try {
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
 
-            //get the stored file
-            FileInputStream fileinput = context.openFileInput("connectus_user_info");
-            Scanner scanner = new Scanner(fileinput);
+        if(isConnected) {
 
-            while(scanner.hasNext()){
-                returnString = scanner.nextLine();
-            }
+            String returnString = "";
 
-            String[] userInfo = returnString.split("\\|");
-            notifications = userInfo[11].split(" ");
-            Log.e("notifications", notifications[0]);
-            friends = userInfo[8].split(" ");
-            userId = userInfo[0];
+            try {
 
+                //get the stored file
+                FileInputStream fileinput = context.openFileInput("connectus_user_info");
+                Scanner scanner = new Scanner(fileinput);
 
-        } catch (IOException e){
-            Log.e("Error: ", "file not found");
-        }
-
-        if(!notifications[0].equals("")) {
-
-            HttpClient httpclient = new DefaultHttpClient();
-
-            names = new String[notifications.length];
-            for (int i = 0; i < notifications.length; i++) {
-                try {
-                    HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/getName.php?userId=" + notifications[i]);
-                    HttpResponse response = httpclient.execute(httprequest);
-
-                    if (response != null) {
-                        InputStream inputStream2 = response.getEntity().getContent();
-
-                        //return the string to be cached
-                        String name = convertStreamToString(inputStream2);
-                        names[i] = name;
-                    }
-                } catch (IOException e) {
-                    Log.e("Exception", "IOException");
+                while (scanner.hasNext()) {
+                    returnString = scanner.nextLine();
                 }
 
+                String[] userInfo = returnString.split("\\|");
+                notifications = userInfo[11].split(" ");
+                Log.e("notifications", notifications[0]);
+                friends = userInfo[8].split(" ");
+                userId = userInfo[0];
 
+
+            } catch (IOException e) {
+                Log.e("Error: ", "file not found");
             }
+
+            if (!notifications[0].equals("")) {
+
+                HttpClient httpclient = new DefaultHttpClient();
+
+                names = new String[notifications.length];
+                for (int i = 0; i < notifications.length; i++) {
+                    try {
+                        HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/getName.php?userId=" + notifications[i]);
+                        HttpResponse response = httpclient.execute(httprequest);
+
+                        if (response != null) {
+                            InputStream inputStream2 = response.getEntity().getContent();
+
+                            //return the string to be cached
+                            String name = convertStreamToString(inputStream2);
+                            names[i] = name;
+                        }
+                    } catch (IOException e) {
+                        Log.e("Exception", "IOException");
+                    }
+
+
+                }
+            }
+        }else{
+            activity.findViewById(R.id.network_warning).setVisibility(View.VISIBLE);
+            connected = false;
         }
+
 
         return null;
     }
@@ -162,59 +180,63 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void result){
 
-        LinearLayout notificationsContainer = (LinearLayout) activity.findViewById(R.id.notifications);
+        if(connected) {
 
-        if(!notifications[0].equals("")){
 
-            for(int i=0; i<notifications.length; i++) {
-                //create linear layout
-                RelativeLayout layout = new RelativeLayout(activity);
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                params.setMargins(10, 10, 10, 0);
-                layout.setPadding(10, 10, 10, 10);
-                layout.setBackgroundColor(Color.parseColor("#DDDDDD"));
-                layout.setOnClickListener(onClickFriend);
-                layout.setTag(notifications[i]);
+            LinearLayout notificationsContainer = (LinearLayout) activity.findViewById(R.id.notifications);
 
-                LinearLayout buttonHolder = new LinearLayout(activity);
-                RelativeLayout.LayoutParams llParams = new RelativeLayout.LayoutParams
-                        (new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                llParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            if (!notifications[0].equals("")) {
 
-                //create textview
-                TextView textView = new TextView(activity);
-                textView.setText(names[i]);
-                ViewGroup.LayoutParams textViewLayoutParams = new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                textView.setLayoutParams(textViewLayoutParams);
-                textView.setTextSize(20);
+                for (int i = 0; i < notifications.length; i++) {
+                    //create linear layout
+                    RelativeLayout layout = new RelativeLayout(activity);
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                            new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    params.setMargins(10, 10, 10, 0);
+                    layout.setPadding(10, 10, 10, 10);
+                    layout.setBackgroundColor(Color.parseColor("#DDDDDD"));
+                    layout.setOnClickListener(onClickFriend);
+                    layout.setTag(notifications[i]);
 
-                Button accept = new Button(activity);
-                LayoutParams acceptParams = new LayoutParams(30, 30);
-                accept.setLayoutParams(acceptParams);
-                accept.setBackgroundResource(R.drawable.check2);
-                accept.setTag(notifications[i]);
-                accept.setOnClickListener(acceptFriend);
+                    LinearLayout buttonHolder = new LinearLayout(activity);
+                    RelativeLayout.LayoutParams llParams = new RelativeLayout.LayoutParams
+                            (new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    llParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-                Button reject = new Button(activity);
-                LinearLayout.LayoutParams rejectParams = new LinearLayout.LayoutParams(30, 30);
-                rejectParams.setMargins(20, 0, 0, 0);
-                reject.setLayoutParams(rejectParams);
-                reject.setBackgroundResource(R.drawable.x);
-                reject.setTag(notifications[i]);
-                reject.setOnClickListener(rejectFriend);
+                    //create textview
+                    TextView textView = new TextView(activity);
+                    textView.setText(names[i]);
+                    ViewGroup.LayoutParams textViewLayoutParams = new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    textView.setLayoutParams(textViewLayoutParams);
+                    textView.setTextSize(20);
 
-                buttonHolder.addView(accept);
-                buttonHolder.addView(reject);
+                    Button accept = new Button(activity);
+                    LayoutParams acceptParams = new LayoutParams(30, 30);
+                    accept.setLayoutParams(acceptParams);
+                    accept.setBackgroundResource(R.drawable.check2);
+                    accept.setTag(notifications[i]);
+                    accept.setOnClickListener(acceptFriend);
 
-                layout.addView(textView);
-                layout.addView(buttonHolder, llParams);
-                notificationsContainer.addView(layout, params);
+                    Button reject = new Button(activity);
+                    LinearLayout.LayoutParams rejectParams = new LinearLayout.LayoutParams(30, 30);
+                    rejectParams.setMargins(20, 0, 0, 0);
+                    reject.setLayoutParams(rejectParams);
+                    reject.setBackgroundResource(R.drawable.x);
+                    reject.setTag(notifications[i]);
+                    reject.setOnClickListener(rejectFriend);
+
+                    buttonHolder.addView(accept);
+                    buttonHolder.addView(reject);
+
+                    layout.addView(textView);
+                    layout.addView(buttonHolder, llParams);
+                    notificationsContainer.addView(layout, params);
+                }
+            } else {
+                TextView noNotifications = (TextView) activity.findViewById(R.id.have_no_notifications);
+                noNotifications.setVisibility(View.VISIBLE);
+
             }
-        }else{
-            TextView noNotifications = (TextView) activity.findViewById(R.id.have_no_notifications);
-            noNotifications.setVisibility(View.VISIBLE);
-
         }
 
     }

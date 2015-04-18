@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -35,10 +37,12 @@ public class AsyncFriendsList extends AsyncTask<Void, Void, Void> {
     private String userId;
     private OnClickListener onClickFriend;
     private String[] names;
+    private boolean connected;
 
     public AsyncFriendsList(Context context, Activity activity){
         this.context = context;
         this.activity = activity;
+        connected = true;
 
         onClickFriend = new OnClickListener() {
             @Override
@@ -55,51 +59,63 @@ public class AsyncFriendsList extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... args){
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        String returnString = "";
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
 
-        try {
+        if(isConnected) {
 
-            //get the stored file
-            FileInputStream fileinput = context.openFileInput("connectus_user_info");
-            Scanner scanner = new Scanner(fileinput);
+            String returnString = "";
 
-            while(scanner.hasNext()){
-                returnString = scanner.nextLine();
-            }
+            try {
 
-            String[] userInfo = returnString.split("\\|");
-            friendsList = userInfo[8].split(" ");
-            userId = userInfo[0];
+                //get the stored file
+                FileInputStream fileinput = context.openFileInput("connectus_user_info");
+                Scanner scanner = new Scanner(fileinput);
 
-
-        } catch (IOException e){
-            Log.e("Error: ", "file not found");
-        }
-
-        if(!friendsList[0].equals("")) {
-
-            HttpClient httpclient = new DefaultHttpClient();
-
-            names = new String[friendsList.length];
-            for (int i = 0; i < friendsList.length; i++) {
-                try {
-                    HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/getName.php?userId=" + friendsList[i]);
-                    HttpResponse response = httpclient.execute(httprequest);
-
-                    if (response != null) {
-                        InputStream inputStream2 = response.getEntity().getContent();
-
-                        //return the string to be cached
-                        String name = convertStreamToString(inputStream2);
-                        names[i] = name;
-                    }
-                } catch (IOException e) {
-                    Log.e("Exception", "IOException");
+                while (scanner.hasNext()) {
+                    returnString = scanner.nextLine();
                 }
 
+                String[] userInfo = returnString.split("\\|");
+                friendsList = userInfo[8].split(" ");
+                userId = userInfo[0];
 
+
+            } catch (IOException e) {
+                Log.e("Error: ", "file not found");
             }
+
+            if (!friendsList[0].equals("")) {
+
+                HttpClient httpclient = new DefaultHttpClient();
+
+                names = new String[friendsList.length];
+                for (int i = 0; i < friendsList.length; i++) {
+                    try {
+                        HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/getName.php?userId=" + friendsList[i]);
+                        HttpResponse response = httpclient.execute(httprequest);
+
+                        if (response != null) {
+                            InputStream inputStream2 = response.getEntity().getContent();
+
+                            //return the string to be cached
+                            String name = convertStreamToString(inputStream2);
+                            names[i] = name;
+                        }
+                    } catch (IOException e) {
+                        Log.e("Exception", "IOException");
+                    }
+
+
+                }
+            }
+        }else{
+            connected = false;
+            activity.findViewById(R.id.network_warning).setVisibility(View.VISIBLE);
         }
 
         return null;
@@ -107,34 +123,36 @@ public class AsyncFriendsList extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result){
-        LinearLayout friendsContainer = (LinearLayout) activity.findViewById(R.id.friends);
+        if(connected) {
+            LinearLayout friendsContainer = (LinearLayout) activity.findViewById(R.id.friends);
 
-        if(!friendsList[0].equals("")) {
-            for (int i = 0; i < friendsList.length; i++) {
-                //create linear layout
-                LinearLayout layout = new LinearLayout(activity);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-                params.setMargins(10, 10, 10, 0);
-                layout.setPadding(10, 10, 10, 10);
-                layout.setBackgroundColor(Color.parseColor("#DDDDDD"));
-                layout.setOnClickListener(onClickFriend);
-                layout.setTag(friendsList[i]);
+            if (!friendsList[0].equals("")) {
+                for (int i = 0; i < friendsList.length; i++) {
+                    //create linear layout
+                    LinearLayout layout = new LinearLayout(activity);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+                    params.setMargins(10, 10, 10, 0);
+                    layout.setPadding(10, 10, 10, 10);
+                    layout.setBackgroundColor(Color.parseColor("#DDDDDD"));
+                    layout.setOnClickListener(onClickFriend);
+                    layout.setTag(friendsList[i]);
 
-                //create textview
-                TextView textView = new TextView(activity);
-                textView.setText(names[i]);
-                LayoutParams textViewLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-                textView.setLayoutParams(textViewLayoutParams);
-                textView.setTextSize(20);
+                    //create textview
+                    TextView textView = new TextView(activity);
+                    textView.setText(names[i]);
+                    LayoutParams textViewLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+                    textView.setLayoutParams(textViewLayoutParams);
+                    textView.setTextSize(20);
 
-                layout.addView(textView);
-                friendsContainer.addView(layout, params);
+                    layout.addView(textView);
+                    friendsContainer.addView(layout, params);
 
+                }
+            } else {
+                TextView haveNoFriends = (TextView) activity.findViewById(R.id.have_no_friends);
+                haveNoFriends.setVisibility(View.VISIBLE);
             }
-        }else{
-            TextView haveNoFriends = (TextView) activity.findViewById(R.id.have_no_friends);
-            haveNoFriends.setVisibility(View.VISIBLE);
         }
     }
 

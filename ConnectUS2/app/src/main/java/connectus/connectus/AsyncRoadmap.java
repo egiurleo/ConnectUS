@@ -2,6 +2,8 @@ package connectus.connectus;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -30,11 +32,13 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
     private String[] mapPosArray;
     private String[] nameArray;
     private String[] friendsList;
+    private boolean visible;
 
     public AsyncRoadmap(Context context, Activity activity, RoadmapActivity rma){
         this.context = context;
         this.activity = activity;
         this.rma = rma;
+        visible = true;
     }
 
     @Override
@@ -60,41 +64,56 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
             Log.e("Error: ", "file not found");
         }
 
-        HttpClient httpclient = new DefaultHttpClient();
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        mapPosArray = new String[friendsList.length];
-        nameArray = new String[friendsList.length];
-        for (int i = 0; i < friendsList.length; i++) {
-            try {
-                HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/getMapPos.php?userId=" + friendsList[i]);
-                HttpResponse response = httpclient.execute(httprequest);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
 
-                if (response != null) {
-                    InputStream inputStream = response.getEntity().getContent();
+        if(isConnected) {
+            Log.e("should be", "connected");
 
-                    //return the string to be cached
-                    String pos = convertStreamToString(inputStream);
-                    mapPosArray[i] = pos;
+
+            HttpClient httpclient = new DefaultHttpClient();
+
+            mapPosArray = new String[friendsList.length];
+            nameArray = new String[friendsList.length];
+            for (int i = 0; i < friendsList.length; i++) {
+                try {
+                    HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/getMapPos.php?userId=" + friendsList[i]);
+                    HttpResponse response = httpclient.execute(httprequest);
+
+                    if (response != null) {
+                        InputStream inputStream = response.getEntity().getContent();
+
+                        //return the string to be cached
+                        String pos = convertStreamToString(inputStream);
+                        mapPosArray[i] = pos;
+                    }
+                } catch (IOException e) {
+                    Log.e("Exception", "IOException");
                 }
-            } catch (IOException e) {
-                Log.e("Exception", "IOException");
-            }
 
-            try {
-                HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/getName.php?userId=" + friendsList[i]);
-                HttpResponse response = httpclient.execute(httprequest);
+                try {
+                    HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/getName.php?userId=" + friendsList[i]);
+                    HttpResponse response = httpclient.execute(httprequest);
 
-                if (response != null) {
-                    InputStream inputStream = response.getEntity().getContent();
+                    if (response != null) {
+                        InputStream inputStream = response.getEntity().getContent();
 
-                    //return the string to be cached
-                    String name = convertStreamToString(inputStream);
-                    nameArray[i] = name;
+                        //return the string to be cached
+                        String name = convertStreamToString(inputStream);
+                        nameArray[i] = name;
+                    }
+                } catch (IOException e) {
+                    Log.e("Exception", "IOException");
                 }
-            } catch (IOException e) {
-                Log.e("Exception", "IOException");
-            }
 
+            }
+        }else{
+            activity.findViewById(R.id.network_warning).setVisibility(View.VISIBLE);
+            visible = false;
         }
 
          return userInfo;
@@ -118,7 +137,6 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
             ImageView imgView = (ImageView) activity.findViewById(resourceId);
             imgView.setVisibility(View.VISIBLE);
 
-
         }
 
         for(int i = mapPos + 1; i <= 6; i++){
@@ -128,20 +146,31 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
             imgView.setVisibility(View.INVISIBLE);
         }
 
-        rma.mapPos = mapPos;
-        if(!friendsList[0].equals("")) {
-            for (int i = 0; i < friendsList.length; i++) {
-                String pos = mapPosArray[i];
-                String id = "dot" + pos;
+        if(visible) {
+
+            for(int i=1; i<=6; i++){
+                String id = "dot" + i;
                 int resourceId = context.getResources().getIdentifier(id, "id", context.getPackageName());
                 ImageView imgView = (ImageView) activity.findViewById(resourceId);
+                imgView.setTag("");
+                imgView.setVisibility(View.GONE);
+            }
 
-                if(imgView.getTag() == null){
-                    imgView.setTag("");
+            rma.mapPos = mapPos;
+            if (!friendsList[0].equals("")) {
+                for (int i = 0; i < friendsList.length; i++) {
+                    String pos = mapPosArray[i];
+                    String id = "dot" + pos;
+                    int resourceId = context.getResources().getIdentifier(id, "id", context.getPackageName());
+                    ImageView imgView = (ImageView) activity.findViewById(resourceId);
+
+                    if (imgView.getTag() == null) {
+                        imgView.setTag("");
+                    }
+
+                    imgView.setTag(imgView.getTag() + "|" + friendsList[i] + "," + nameArray[i]);
+                    imgView.setVisibility(View.VISIBLE);
                 }
-
-                imgView.setTag(imgView.getTag() + "|" + friendsList[i] + "," + nameArray[i]);
-                imgView.setVisibility(View.VISIBLE);
             }
         }
     }

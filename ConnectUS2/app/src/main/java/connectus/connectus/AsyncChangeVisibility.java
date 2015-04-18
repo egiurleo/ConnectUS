@@ -2,8 +2,11 @@ package connectus.connectus;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.Spinner;
 
 import java.io.FileInputStream;
@@ -27,6 +30,16 @@ public class AsyncChangeVisibility extends AsyncTask<Void, Void, String[]> {
 
     @Override
     protected String[] doInBackground(Void... args){
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        if(!isConnected){
+            activity.findViewById(R.id.network_warning).setVisibility(View.VISIBLE);
+        }
 
         String returnString = "";
 
@@ -52,26 +65,29 @@ public class AsyncChangeVisibility extends AsyncTask<Void, Void, String[]> {
 
     @Override
     protected void onPostExecute(String[] result){
-        changeVisibilityActivity.id = result[0];
 
-        String[] visibilitySettings = result[12].split(" ");
-        //name, email, phone, country, language
+        if(result != null) {
+            changeVisibilityActivity.id = result[0];
 
-        Spinner nameSpinner = (Spinner) activity.findViewById(R.id.name_spinner);
-        Spinner emailSpinner = (Spinner) activity.findViewById(R.id.email_spinner);
-        Spinner phoneSpinner = (Spinner) activity.findViewById(R.id.phone_spinner);
-        Spinner countrySpinner = (Spinner) activity.findViewById(R.id.country_spinner);
-        Spinner languageSpinner = (Spinner) activity.findViewById(R.id.langauge_spinner);
+            String[] visibilitySettings = result[12].split(" ");
+            //name, email, phone, country, language
 
-        Spinner[] spinners = {nameSpinner, emailSpinner, phoneSpinner, countrySpinner, languageSpinner};
+            Spinner nameSpinner = (Spinner) activity.findViewById(R.id.name_spinner);
+            Spinner emailSpinner = (Spinner) activity.findViewById(R.id.email_spinner);
+            Spinner phoneSpinner = (Spinner) activity.findViewById(R.id.phone_spinner);
+            Spinner countrySpinner = (Spinner) activity.findViewById(R.id.country_spinner);
+            Spinner languageSpinner = (Spinner) activity.findViewById(R.id.langauge_spinner);
 
-        for(int i=0; i<spinners.length; i++){
-            if(visibilitySettings[i].equals("1")){
-                int spinnerIndex = getIndex(spinners[i], "Everyone");
-                spinners[i].setSelection(spinnerIndex);
-            }else{
-                int spinnerIndex = getIndex(spinners[i], "Friends Only");
-                spinners[i].setSelection(spinnerIndex);
+            Spinner[] spinners = {nameSpinner, emailSpinner, phoneSpinner, countrySpinner, languageSpinner};
+
+            for (int i = 0; i < spinners.length; i++) {
+                if (visibilitySettings[i].equals("1")) {
+                    int spinnerIndex = getIndex(spinners[i], "Everyone");
+                    spinners[i].setSelection(spinnerIndex);
+                } else {
+                    int spinnerIndex = getIndex(spinners[i], "Friends Only");
+                    spinners[i].setSelection(spinnerIndex);
+                }
             }
         }
     }

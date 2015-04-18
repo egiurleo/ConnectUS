@@ -2,8 +2,11 @@ package connectus.connectus;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -44,6 +47,17 @@ public class AsyncEditProfile extends AsyncTask <Void, Void, String[]> {
 
         } catch (IOException e){
             Log.e("Error: ", "file not found");
+        }
+
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        if(!isConnected){
+            activity.findViewById(R.id.network_warning).setVisibility(View.VISIBLE);
         }
 
         return null;
@@ -88,6 +102,17 @@ public class AsyncEditProfile extends AsyncTask <Void, Void, String[]> {
         if(!country.equals("")){
             int spinnerIndex = getIndex(countries, country);
             countries.setSelection(spinnerIndex);
+        }
+
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        if(!isConnected) {
+            activity.findViewById(R.id.network_warning).setVisibility(View.VISIBLE);
         }
     }
 

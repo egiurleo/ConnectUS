@@ -2,6 +2,8 @@ package connectus.connectus;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -35,34 +37,44 @@ public class AsyncSendFriendRequest extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... args){
-        HttpClient httpclient = new DefaultHttpClient();
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        String returnString = "";
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if(isConnected) {
+            HttpClient httpclient = new DefaultHttpClient();
 
-        try {
+            String returnString = "";
 
-            //get the stored file
-            FileInputStream fileinput = context.openFileInput("connectus_user_info");
-            Scanner scanner = new Scanner(fileinput);
+            try {
 
-            while(scanner.hasNext()){
-                returnString = scanner.nextLine();
+                //get the stored file
+                FileInputStream fileinput = context.openFileInput("connectus_user_info");
+                Scanner scanner = new Scanner(fileinput);
+
+                while (scanner.hasNext()) {
+                    returnString = scanner.nextLine();
+                }
+
+                String[] userInfo = returnString.split("\\|");
+                userId = userInfo[0];
+            } catch (IOException e) {
+                Log.e("Error: ", "file not found");
             }
 
-            String[] userInfo = returnString.split("\\|");
-            userId = userInfo[0];
-        } catch (IOException e){
-            Log.e("Error: ", "file not found");
-        }
+            try {
+                Log.e("in method", "making request");
+                String urlString = "http://egiurleo.scripts.mit.edu/addNotification.php?userId=" + notificationId + "&notification=" + userId;
 
-        try {
-            Log.e("in method", "making request");
-            String urlString = "http://egiurleo.scripts.mit.edu/addNotification.php?userId=" + notificationId + "&notification=" + userId;
-
-            HttpGet httprequest = new HttpGet(urlString);
-            HttpResponse response = httpclient.execute(httprequest);
-        }catch(IOException e){
-            Log.e("Exception", "IOException");
+                HttpGet httprequest = new HttpGet(urlString);
+                HttpResponse response = httpclient.execute(httprequest);
+            } catch (IOException e) {
+                Log.e("Exception", "IOException");
+            }
+        }else{
+            activity.findViewById(R.id.network_warning).setVisibility(View.VISIBLE);
         }
 
         return null;
@@ -70,10 +82,13 @@ public class AsyncSendFriendRequest extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result){
-        Button friendRequestButton = (Button) activity.findViewById(R.id.send_friend_request);
-        friendRequestButton.setVisibility(View.GONE);
+        if(result != null){
+            Button friendRequestButton = (Button) activity.findViewById(R.id.send_friend_request);
+            friendRequestButton.setVisibility(View.GONE);
 
-        TextView friendRequestSent = (TextView) activity.findViewById(R.id.friend_request_sent);
-        friendRequestSent.setVisibility(View.VISIBLE);
+            TextView friendRequestSent = (TextView) activity.findViewById(R.id.friend_request_sent);
+            friendRequestSent.setVisibility(View.VISIBLE);
+        }
+
     }
 }

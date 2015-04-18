@@ -29,6 +29,7 @@ public class AsyncSetNotification extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... args){
+        //i don't think i need to worry about connectivity in here
         HttpClient httpclient = new DefaultHttpClient();
         try {
             String urlString = "http://egiurleo.scripts.mit.edu/setNotifications.php?userId=" + userId + "&notifications=" + notifications;

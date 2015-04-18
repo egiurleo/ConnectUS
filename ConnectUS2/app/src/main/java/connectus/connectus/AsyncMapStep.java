@@ -1,8 +1,12 @@
 package connectus.connectus;
 
+import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -16,35 +20,48 @@ public class AsyncMapStep extends AsyncTask<Void, Void, Void> {
     private String userId;
     private int mapPos;
     private Context context;
+    private Activity activity;
 
-    public AsyncMapStep(String userId, int mapPos, boolean checkboxEnabled, Context context){
+    public AsyncMapStep(String userId, int mapPos, boolean checkboxEnabled, Context context, Activity activity){
         this.checkboxEnabled = checkboxEnabled;
         this.userId = userId;
         this.mapPos = mapPos;
         this.context = context;
+        this.activity = activity;
     }
 
     @Override
     protected Void doInBackground(Void... args){
-        HttpClient httpclient = new DefaultHttpClient();
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        int newMapPos;
-        if(checkboxEnabled){
-            newMapPos = mapPos;
-        }else{
-            if(mapPos == 6){
-                newMapPos = mapPos - 2;
-            }else{
-                newMapPos = mapPos-1;
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        if(isConnected) {
+            HttpClient httpclient = new DefaultHttpClient();
+
+            int newMapPos;
+            if (checkboxEnabled) {
+                newMapPos = mapPos;
+            } else {
+                if (mapPos == 6) {
+                    newMapPos = mapPos - 2;
+                } else {
+                    newMapPos = mapPos - 1;
+                }
+
             }
 
-        }
-
-        try {
-            HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/changeMapPos.php?userId=" + userId + "&mapPos=" + newMapPos);
-            HttpResponse response = httpclient.execute(httprequest);
-        }catch (IOException e){
-            Log.e("Exception", "IOException");
+            try {
+                HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/changeMapPos.php?userId=" + userId + "&mapPos=" + newMapPos);
+                HttpResponse response = httpclient.execute(httprequest);
+            } catch (IOException e) {
+                Log.e("Exception", "IOException");
+            }
+        }else{
+            activity.findViewById(R.id.network_warning).setVisibility(View.VISIBLE);
         }
 
         return null;
@@ -52,8 +69,10 @@ public class AsyncMapStep extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result){
-        AsyncLogin asyncLogin = new AsyncLogin(context);
-        asyncLogin.execute(userId);
+        if(result != null) {
+            AsyncLogin asyncLogin = new AsyncLogin(context);
+            asyncLogin.execute(userId);
+        }
     }
 
 }

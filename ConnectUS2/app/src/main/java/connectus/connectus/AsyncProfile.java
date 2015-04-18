@@ -2,6 +2,8 @@ package connectus.connectus;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -87,6 +89,17 @@ public class AsyncProfile extends AsyncTask<Void, Void, String[]> {
             txtView.setVisibility(View.VISIBLE);
         }else{
             txtView.setVisibility(View.INVISIBLE);
+        }
+
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        if(!isConnected) {
+            activity.findViewById(R.id.network_warning).setVisibility(View.VISIBLE);
         }
 
     }

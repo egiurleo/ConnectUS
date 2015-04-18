@@ -1,5 +1,8 @@
 package connectus.connectus;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -21,24 +24,40 @@ public class ChangeVisibilityActivity extends ConnectUSActivity {
     }
 
     public void done(View view){
-        AsyncDoneChanging asyncDoneChanging = new AsyncDoneChanging(getApplicationContext(), ChangeVisibilityActivity.this, id);
-        asyncDoneChanging.execute();
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        AsyncLogin asyncLogin = new AsyncLogin(getApplicationContext());
-        asyncLogin.execute(id);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if(isConnected) {
+            AsyncDoneChanging asyncDoneChanging = new AsyncDoneChanging(getApplicationContext(), ChangeVisibilityActivity.this, id);
+            asyncDoneChanging.execute();
+
+            AsyncLogin asyncLogin = new AsyncLogin(getApplicationContext());
+            asyncLogin.execute(id);
+        }
 
         finish();
     }
 
     @Override
     public void onBackPressed(){
-        AsyncDoneChanging asyncDoneChanging = new AsyncDoneChanging(getApplicationContext(), ChangeVisibilityActivity.this, id);
-        asyncDoneChanging.execute();
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        AsyncLogin asyncLogin = new AsyncLogin(getApplicationContext());
-        asyncLogin.execute(id);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if(isConnected) {
+            AsyncDoneChanging asyncDoneChanging = new AsyncDoneChanging(getApplicationContext(), ChangeVisibilityActivity.this, id);
+            asyncDoneChanging.execute();
 
-        super.onBackPressed();
+            AsyncLogin asyncLogin = new AsyncLogin(getApplicationContext());
+            asyncLogin.execute(id);
+        }
+
+        finish();
     }
 
 
