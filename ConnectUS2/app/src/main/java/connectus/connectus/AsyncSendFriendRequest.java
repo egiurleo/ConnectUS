@@ -28,11 +28,13 @@ public class AsyncSendFriendRequest extends AsyncTask<Void, Void, Void> {
     private String notificationId;
     private Context context;
     private Activity activity;
+    private boolean connected;
 
     public AsyncSendFriendRequest(String notificationId, Context context, Activity activity){
         this.context = context;
         this.notificationId = notificationId;
         this.activity = activity;
+        connected = true;
     }
 
     @Override
@@ -75,6 +77,7 @@ public class AsyncSendFriendRequest extends AsyncTask<Void, Void, Void> {
             }
         }else{
             activity.findViewById(R.id.network_warning).setVisibility(View.VISIBLE);
+            connected = false;
         }
 
         return null;
@@ -82,7 +85,7 @@ public class AsyncSendFriendRequest extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result){
-        if(result != null){
+        if(connected){
             Button friendRequestButton = (Button) activity.findViewById(R.id.send_friend_request);
             friendRequestButton.setVisibility(View.GONE);
 

@@ -21,6 +21,7 @@ public class AsyncMapStep extends AsyncTask<Void, Void, Void> {
     private int mapPos;
     private Context context;
     private Activity activity;
+    private boolean connected;
 
     public AsyncMapStep(String userId, int mapPos, boolean checkboxEnabled, Context context, Activity activity){
         this.checkboxEnabled = checkboxEnabled;
@@ -28,6 +29,7 @@ public class AsyncMapStep extends AsyncTask<Void, Void, Void> {
         this.mapPos = mapPos;
         this.context = context;
         this.activity = activity;
+        connected = true;
     }
 
     @Override
@@ -62,6 +64,7 @@ public class AsyncMapStep extends AsyncTask<Void, Void, Void> {
             }
         }else{
             activity.findViewById(R.id.network_warning).setVisibility(View.VISIBLE);
+            connected = false;
         }
 
         return null;
@@ -69,7 +72,7 @@ public class AsyncMapStep extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result){
-        if(result != null) {
+        if(connected) {
             AsyncLogin asyncLogin = new AsyncLogin(context);
             asyncLogin.execute(userId);
         }
