@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
@@ -54,6 +55,7 @@ public class RoadmapActivity extends ConnectUSActivity {
                         if (isConnected) {
                             AsyncLogin asyncLogin = new AsyncLogin(getApplicationContext());
                             asyncLogin.execute(id);
+                            Log.e("Hello", "doing the thing");
 
                         } else {
 
@@ -71,7 +73,7 @@ public class RoadmapActivity extends ConnectUSActivity {
         roadmapBackground.execute();
 
         LogTest asyncLogTest = new LogTest(getApplicationContext(), RoadmapActivity.this, this);
-        roadmapBackground.execute();
+        asyncLogTest.execute();
     }
 
     public void mapStepClick(View view){
