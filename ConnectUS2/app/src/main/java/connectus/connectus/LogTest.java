@@ -1,4 +1,4 @@
-package com.rdc;
+package connectus.connectus;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,7 +22,6 @@ public class LogTest extends ConnectUSActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
         try {
             Process process = Runtime.getRuntime().exec("logcat -d");
             BufferedReader bufferedReader = new BufferedReader(
@@ -33,8 +32,7 @@ public class LogTest extends ConnectUSActivity {
             while ((line = bufferedReader.readLine()) != null) {
                 log.append(line);
             }
-            TextView tv = (TextView)findViewById(R.id.textView1);
-            tv.setText(log.toString());
+            String logString = log.toString();
         } catch (IOException e) {
         }
 
