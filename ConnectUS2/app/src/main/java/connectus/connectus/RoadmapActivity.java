@@ -65,7 +65,7 @@ public class RoadmapActivity extends ConnectUSActivity {
     }
 
     public void popupMenu(View view){
-        String[] list = ((String)view.getTag()).split(" ");
+        String[] list = ((String)view.getTag()).split("\\|");
 
         //create popup
         PopupMenu popup = new PopupMenu(this, view);
@@ -74,7 +74,8 @@ public class RoadmapActivity extends ConnectUSActivity {
         Menu menu = popup.getMenu();
         for(String listItem : list){
             if(!listItem.equals("")) {
-                menu.add(listItem);
+                String[] idName = listItem.split(",");
+                menu.add(idName[1]);
             }
         }
 

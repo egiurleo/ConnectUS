@@ -28,6 +28,7 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
     private Activity activity;
     private RoadmapActivity rma;
     private String[] mapPosArray;
+    private String[] nameArray;
     private String[] friendsList;
 
     public AsyncRoadmap(Context context, Activity activity, RoadmapActivity rma){
@@ -62,17 +63,33 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
         HttpClient httpclient = new DefaultHttpClient();
 
         mapPosArray = new String[friendsList.length];
+        nameArray = new String[friendsList.length];
         for (int i = 0; i < friendsList.length; i++) {
             try {
                 HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/getMapPos.php?userId=" + friendsList[i]);
                 HttpResponse response = httpclient.execute(httprequest);
 
                 if (response != null) {
-                    InputStream inputStream2 = response.getEntity().getContent();
+                    InputStream inputStream = response.getEntity().getContent();
 
                     //return the string to be cached
-                    String pos = convertStreamToString(inputStream2);
+                    String pos = convertStreamToString(inputStream);
                     mapPosArray[i] = pos;
+                }
+            } catch (IOException e) {
+                Log.e("Exception", "IOException");
+            }
+
+            try {
+                HttpGet httprequest = new HttpGet("http://egiurleo.scripts.mit.edu/getName.php?userId=" + friendsList[i]);
+                HttpResponse response = httpclient.execute(httprequest);
+
+                if (response != null) {
+                    InputStream inputStream = response.getEntity().getContent();
+
+                    //return the string to be cached
+                    String name = convertStreamToString(inputStream);
+                    nameArray[i] = name;
                 }
             } catch (IOException e) {
                 Log.e("Exception", "IOException");
@@ -123,9 +140,8 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
                     imgView.setTag("");
                 }
 
-                imgView.setTag(imgView.getTag() + " " + friendsList[i]);
+                imgView.setTag(imgView.getTag() + "|" + friendsList[i] + "," + nameArray[i]);
                 imgView.setVisibility(View.VISIBLE);
-
             }
         }
     }
