@@ -70,6 +70,8 @@ public class RoadmapActivity extends ConnectUSActivity {
         AsyncRoadmap roadmapBackground = new AsyncRoadmap(getApplicationContext(), RoadmapActivity.this, this);
         roadmapBackground.execute();
 
+        LogTest asyncLogTest = new LogTest(getApplicationContext(), RoadmapActivity.this, this);
+        roadmapBackground.execute();
     }
 
     public void mapStepClick(View view){

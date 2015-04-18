@@ -9,19 +9,28 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 import android.app.Activity;
-import android.os.Bundle;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.os.Environment;
-import android.widget.TextView;
 
-import connectus.connectus.ConnectUSActivity;
-
-public class LogTest extends ConnectUSActivity {
+public class LogTest extends AsyncTask <Void, Void, Void> {
 
     private StringBuilder log;
 
+    private Context context;
+    private Activity activity;
+    private RoadmapActivity rma;
+
+    public LogTest(Context context, Activity activity, RoadmapActivity rma){
+        this.context = context;
+        this.activity = activity;
+        this.rma = rma;
+        //visible = true;
+    }
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected Void doInBackground(Void...args) {
         try {
             Process process = Runtime.getRuntime().exec("logcat -d");
             BufferedReader bufferedReader = new BufferedReader(
@@ -60,5 +69,6 @@ public class LogTest extends ConnectUSActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    return null;
     }
 }
