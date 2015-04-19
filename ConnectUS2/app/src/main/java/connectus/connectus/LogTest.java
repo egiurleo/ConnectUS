@@ -1,5 +1,11 @@
 package connectus.connectus;
 
+import android.app.Activity;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Environment;
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -98,6 +104,7 @@ public class LogTest extends AsyncTask <Void, Void, Void> {
             timer.schedule(doAsynchronousTask, 0, 120000); //execute in every 2 min
 
         } catch (IOException e) {
+            Log.e("Ioexception", "bloop");
         }
 
 
