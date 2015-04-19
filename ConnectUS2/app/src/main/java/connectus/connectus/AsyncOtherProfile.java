@@ -86,7 +86,6 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
 
                     //return the string to be cached
                     String x = convertStreamToString(inputStream2);
-                    Log.e("response", x);
                     splitProperties = x.split("\\|");
 
                 }
@@ -96,9 +95,7 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
             }
 
             try {
-                Log.e("blah blah", "bloop bloop");
                 String urlRequest = "http://egiurleo.scripts.mit.edu/sentNotification.php?userId=" + splitList[0] + "&friendId="+ id;
-                Log.e("urlRequest", urlRequest);
                 HttpGet httprequest1 = new HttpGet("http://egiurleo.scripts.mit.edu/notificationSent.php?userId=" + splitList[0] + "&friendId="+ id);
                 HttpResponse response1 = httpclient.execute(httprequest1);
 
@@ -107,7 +104,6 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
 
                     //return the string to be cached
                     notificationSent = convertStreamToString(inputStream2);
-                    Log.e("response", notificationSent);
                 }
             } catch (IOException e) {
                 Log.e("Exception", "IOException");
@@ -178,7 +174,6 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
                     txtView.setText("Country of Origin: " + country);
                 }
 
-                Log.e("visibility", visibility[4]);
                 if (visibility[4].equals("1")) {
 
                     txtView = (TextView) activity.findViewById(R.id.languages);

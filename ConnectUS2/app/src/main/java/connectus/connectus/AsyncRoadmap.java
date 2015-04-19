@@ -72,8 +72,6 @@ public class AsyncRoadmap extends AsyncTask<Void, Void, String[]> {
                 activeNetwork.isConnectedOrConnecting();
 
         if(isConnected) {
-            Log.e("should be", "connected");
-
 
             HttpClient httpclient = new DefaultHttpClient();
 

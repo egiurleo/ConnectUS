@@ -71,8 +71,8 @@ public class AsyncEditProfile extends AsyncTask <Void, Void, String[]> {
         String phone = result[3];
         String country = result[4];
         String languages = result[5];
-        int willingToHelp = Integer.parseInt(result[6]);
-        int lookingForHelp = Integer.parseInt(result[7]);
+        String willingToHelp = result[6];
+        String lookingForHelp = result[7];
 
         editProfileActivity.userId = id;
 
@@ -91,11 +91,11 @@ public class AsyncEditProfile extends AsyncTask <Void, Void, String[]> {
         emailFillin.setText(email);
         phoneFillin.setText(phone);
 
-        if(willingToHelp == 1){
+        if(willingToHelp.equals("1")){
             willingToHelpCB.setChecked(true);
         }
 
-        if(lookingForHelp == 1){
+        if(lookingForHelp.equals("1")){
             lookingForHelpCB.setChecked(true);
         }
 

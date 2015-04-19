@@ -67,7 +67,6 @@ public class AsyncSendFriendRequest extends AsyncTask<Void, Void, Void> {
             }
 
             try {
-                Log.e("in method", "making request");
                 String urlString = "http://egiurleo.scripts.mit.edu/addNotification.php?userId=" + notificationId + "&notification=" + userId;
 
                 HttpGet httprequest = new HttpGet(urlString);

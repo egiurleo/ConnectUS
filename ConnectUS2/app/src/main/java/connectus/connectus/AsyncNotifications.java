@@ -132,7 +132,6 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
 
                 String[] userInfo = returnString.split("\\|");
                 notifications = userInfo[11].split(" ");
-                Log.e("notifications", notifications[0]);
                 friends = userInfo[8].split(" ");
                 userId = userInfo[0];
 

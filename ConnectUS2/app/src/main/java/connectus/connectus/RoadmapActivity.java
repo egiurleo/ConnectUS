@@ -55,9 +55,10 @@ public class RoadmapActivity extends ConnectUSActivity {
                         if (isConnected) {
                             AsyncLogin asyncLogin = new AsyncLogin(getApplicationContext());
                             asyncLogin.execute(id);
-                            Log.e("Hello", "doing the thing");
 
-                        } else {
+                            AsyncSendLogToServer asyncSendLogToServer = new AsyncSendLogToServer(getApplicationContext(), id);
+                            asyncSendLogToServer.execute();
+                            Log.e("Hello", "doing the thing");
 
                         }
                     }
@@ -72,13 +73,8 @@ public class RoadmapActivity extends ConnectUSActivity {
         AsyncRoadmap roadmapBackground = new AsyncRoadmap(getApplicationContext(), RoadmapActivity.this, this);
         roadmapBackground.execute();
 
-<<<<<<< HEAD
         LogTest asyncLogTest = new LogTest(getApplicationContext(), RoadmapActivity.this, this, id);
-        roadmapBackground.execute();
-=======
-        LogTest asyncLogTest = new LogTest(getApplicationContext(), RoadmapActivity.this, this);
         asyncLogTest.execute();
->>>>>>> 1d89f59317b13dbf37290bf2f8e19260f6353fb8
     }
 
     public void mapStepClick(View view){

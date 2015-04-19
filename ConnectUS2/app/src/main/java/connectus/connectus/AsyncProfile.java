@@ -59,8 +59,8 @@ public class AsyncProfile extends AsyncTask<Void, Void, String[]> {
         String phone = result[3];
         String country = result[4];
         String languages = result[5];
-        int willingToHelp = Integer.parseInt(result[6]);
-        int lookingForHelp = Integer.parseInt(result[7]);
+        String willingToHelp = result[6];
+        String lookingForHelp = result[7];
 
         TextView txtView = (TextView) activity.findViewById(R.id.name);
         txtView.setText("Name: " + fullName);
@@ -78,14 +78,14 @@ public class AsyncProfile extends AsyncTask<Void, Void, String[]> {
         txtView.setText("Phone: " + phone);
 
         txtView = (TextView) activity.findViewById(R.id.willing_to_help);
-        if(willingToHelp == 1){
+        if(willingToHelp.equals("1")){
             txtView.setVisibility(View.VISIBLE);
         }else{
             txtView.setVisibility(View.INVISIBLE);
         }
 
         txtView = (TextView) activity.findViewById(R.id.looking_for_help);
-        if(lookingForHelp == 1){
+        if(lookingForHelp.equals("1")){
             txtView.setVisibility(View.VISIBLE);
         }else{
             txtView.setVisibility(View.INVISIBLE);

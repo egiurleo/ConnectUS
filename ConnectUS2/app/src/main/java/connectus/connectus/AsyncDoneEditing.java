@@ -60,7 +60,6 @@ public class AsyncDoneEditing extends AsyncTask<Void, Void, Void> {
                 "&country=" + country;
         urlString = urlString.replace(" ", "+");
 
-        System.out.println(urlString);
 
         try {
             HttpClient httpclient = new DefaultHttpClient();
