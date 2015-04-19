@@ -32,12 +32,14 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
     private Activity activity;
     private OtherProfileActivity opa;
     private String id;
+    private String notificationSent;
 
     public AsyncOtherProfile(Context context, Activity activity, OtherProfileActivity opa, String id){
         this.context = context;
         this.activity = activity;
         this.opa = opa;
         this.id = id;
+        this.notificationSent = "";
     }
 
     boolean areFriends = false;
@@ -50,11 +52,13 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
+        String[] splitProperties = null;
 
         if(isConnected) {
             HttpClient httpclient = new DefaultHttpClient();
 
             String returnString = "";
+            String[] splitList = null;
 
             try {
 
@@ -66,7 +70,7 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
                     returnString = scanner.nextLine();
                 }
 
-                String[] splitList = returnString.split("\\|");
+                splitList = returnString.split("\\|");
                 String[] friendsList = splitList[8].split(" ");
 
                 if (Arrays.asList(friendsList).contains(id)) {
@@ -83,18 +87,36 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
                     //return the string to be cached
                     String x = convertStreamToString(inputStream2);
                     Log.e("response", x);
-                    String[] splitProperties = x.split("\\|");
-                    return splitProperties;
+                    splitProperties = x.split("\\|");
+
                 }
 
             } catch (IOException e) {
                 Log.e("Error: ", "file not found");
             }
+
+            try {
+                Log.e("blah blah", "bloop bloop");
+                String urlRequest = "http://egiurleo.scripts.mit.edu/sentNotification.php?userId=" + splitList[0] + "&friendId="+ id;
+                Log.e("urlRequest", urlRequest);
+                HttpGet httprequest1 = new HttpGet("http://egiurleo.scripts.mit.edu/notificationSent.php?userId=" + splitList[0] + "&friendId="+ id);
+                HttpResponse response1 = httpclient.execute(httprequest1);
+
+                if (response1 != null) {
+                    InputStream inputStream2 = response1.getEntity().getContent();
+
+                    //return the string to be cached
+                    notificationSent = convertStreamToString(inputStream2);
+                    Log.e("response", notificationSent);
+                }
+            } catch (IOException e) {
+                Log.e("Exception", "IOException");
+            }
         }else{
             activity.findViewById(R.id.network_warning).setVisibility(View.VISIBLE);
         }
 
-        return null;
+        return splitProperties;
     }
 
     @Override
@@ -172,6 +194,11 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
             if (lookingForHelp == 1) {
                 TextView textView = (TextView) activity.findViewById(R.id.looking_for_help);
                 textView.setVisibility(View.VISIBLE);
+            }
+
+            if(notificationSent.equals("true")){
+                activity.findViewById(R.id.friend_request_sent).setVisibility(View.VISIBLE);
+                activity.findViewById(R.id.send_friend_request).setVisibility(View.GONE);
             }
         }
     }
