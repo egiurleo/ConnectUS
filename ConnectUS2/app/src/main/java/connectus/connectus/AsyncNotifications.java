@@ -75,7 +75,7 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
                 String friendsString = asString(AsyncNotifications.this.friends);
 
                 AsyncSetNotification asyncSetNotification = new AsyncSetNotification(
-                        AsyncNotifications.this.userId, notifString, true, friendsString);
+                        AsyncNotifications.this.userId, notifString, true, friendsString, notificationId);
                 asyncSetNotification.execute();
 
                 AsyncLogin asyncLogin = new AsyncLogin(AsyncNotifications.this.context);
@@ -94,7 +94,7 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
                 AsyncNotifications.this.notifications = remove(AsyncNotifications.this.notifications, notificationId);
                 String notifString = asString(AsyncNotifications.this.notifications);
                 AsyncSetNotification asyncSetNotification = new AsyncSetNotification(
-                        AsyncNotifications.this.userId, notifString, false, "");
+                        AsyncNotifications.this.userId, notifString, false, "", notificationId);
                 asyncSetNotification.execute();
 
                 AsyncLogin asyncLogin = new AsyncLogin(AsyncNotifications.this.context);
@@ -104,9 +104,6 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
                 parent.setVisibility(View.GONE);
             }
         };
-
-
-
     }
 
     @Override
