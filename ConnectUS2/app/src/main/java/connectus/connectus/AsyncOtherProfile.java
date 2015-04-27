@@ -124,8 +124,21 @@ public class AsyncOtherProfile extends AsyncTask<Void, Void, String[]> {
             String phone = result[3];
             String country = result[4];
             String languages = result[5];
-            int willingToHelp = Integer.parseInt(result[6]);
-            int lookingForHelp = Integer.parseInt(result[7]);
+
+            int willingToHelp;
+            if(!result[6].equals("")){
+                willingToHelp = Integer.parseInt(result[6]);
+            }else{
+                willingToHelp = 0;
+            }
+
+            int lookingForHelp;
+            if(!result[7].equals("")){
+                lookingForHelp = Integer.parseInt(result[7]);
+            }else{
+                lookingForHelp = 0;
+            }
+
             String[] notifications = result[11].split(" ");
             String[] visibility = result[12].split(" ");
 
