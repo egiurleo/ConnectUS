@@ -66,7 +66,7 @@ public class RoadmapActivity extends ConnectUSActivity {
             }
         };
 
-        timer.schedule(doAsynchronousTask, 0, 120000); //execute in every 2 mins
+        timer.schedule(doAsynchronousTask, 0, 30000); //execute in every 2 mins
 
         System.out.println("doing asyncroadmap again");
 
