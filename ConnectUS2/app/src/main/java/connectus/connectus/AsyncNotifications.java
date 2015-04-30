@@ -8,6 +8,7 @@ import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -202,12 +203,10 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
                             (new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     llParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-                    WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-                    Display display = wm.getDefaultDisplay();
-                    Point size = new Point();
-                    display.getSize(size);
-                    int screenWidth = size.x;
-                    int screenHeight = size.y;
+                    //WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                    DisplayMetrics dm = new DisplayMetrics();
+                    int screenWidth = dm.widthPixels;
+                    int screenHeight = dm.heightPixels;
 
                     //create textview
                     TextView textView = new TextView(activity);
