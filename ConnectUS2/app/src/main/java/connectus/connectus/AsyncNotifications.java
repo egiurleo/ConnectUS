@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -199,6 +202,13 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
                             (new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     llParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
+                    WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                    Display display = wm.getDefaultDisplay();
+                    Point size = new Point();
+                    display.getSize(size);
+                    int screenWidth = size.x;
+                    int screenHeight = size.y;
+
                     //create textview
                     TextView textView = new TextView(activity);
                     textView.setText(names[i]);
@@ -207,14 +217,14 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
                     textView.setTextSize(20);
 
                     Button accept = new Button(activity);
-                    LayoutParams acceptParams = new LayoutParams(30, 30);
+                    LayoutParams acceptParams = new LayoutParams(screenWidth/12, screenHeight/12);
                     accept.setLayoutParams(acceptParams);
                     accept.setBackgroundResource(R.drawable.check2);
                     accept.setTag(notifications[i]);
                     accept.setOnClickListener(acceptFriend);
 
                     Button reject = new Button(activity);
-                    LinearLayout.LayoutParams rejectParams = new LinearLayout.LayoutParams(30, 30);
+                    LinearLayout.LayoutParams rejectParams = new LinearLayout.LayoutParams(screenWidth/12, screenHeight/12);
                     rejectParams.setMargins(20, 0, 0, 0);
                     reject.setLayoutParams(rejectParams);
                     reject.setBackgroundResource(R.drawable.x);
