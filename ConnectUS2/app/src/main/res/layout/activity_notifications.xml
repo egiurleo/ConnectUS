@@ -23,21 +23,22 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:visibility="gone"
+            android:id="@+id/have_no_notifications"
+            android:layout_marginTop="10dp"
+            android:text="You have no notifications!"
+            android:gravity="center"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/notifications"
             android:orientation="vertical"
             android:gravity="center_horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:visibility="gone"
-                android:id="@+id/have_no_notifications"
-                android:layout_marginTop="10dp"
-                android:text="You have no notifications!"/>
 
         </LinearLayout>
 

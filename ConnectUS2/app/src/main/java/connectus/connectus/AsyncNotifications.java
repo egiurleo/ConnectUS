@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -184,6 +182,7 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
 
 
             LinearLayout notificationsContainer = (LinearLayout) activity.findViewById(R.id.notifications);
+            notificationsContainer.removeAllViews();
 
             if (!notifications[0].equals("")) {
 
@@ -204,9 +203,12 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
                     llParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
                     //WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-                    DisplayMetrics dm = new DisplayMetrics();
-                    int screenWidth = dm.widthPixels;
-                    int screenHeight = dm.heightPixels;
+//                    DisplayMetrics dm = new DisplayMetrics();
+//                    int screenWidth = dm.widthPixels;
+//                    int screenHeight = dm.heightPixels;
+
+                    WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                    Display display = wm.getDefaultDisplay();
 
                     //create textview
                     TextView textView = new TextView(activity);
@@ -216,14 +218,14 @@ public class AsyncNotifications extends AsyncTask<Void, Void, Void> {
                     textView.setTextSize(20);
 
                     Button accept = new Button(activity);
-                    LayoutParams acceptParams = new LayoutParams(screenWidth/12, screenHeight/12);
+                    LayoutParams acceptParams = new LayoutParams(display.getWidth()/12, display.getHeight()/16);
                     accept.setLayoutParams(acceptParams);
                     accept.setBackgroundResource(R.drawable.check2);
                     accept.setTag(notifications[i]);
                     accept.setOnClickListener(acceptFriend);
 
                     Button reject = new Button(activity);
-                    LinearLayout.LayoutParams rejectParams = new LinearLayout.LayoutParams(screenWidth/12, screenHeight/12);
+                    LinearLayout.LayoutParams rejectParams = new LinearLayout.LayoutParams(display.getWidth()/12, display.getHeight()/16);
                     rejectParams.setMargins(20, 0, 0, 0);
                     reject.setLayoutParams(rejectParams);
                     reject.setBackgroundResource(R.drawable.x);
